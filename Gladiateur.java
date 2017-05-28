@@ -7,26 +7,10 @@ public abstract class Gladiateur {
      * @attribute
      */
     private String nom;
-
-    /**
-     * @attribute
-     */
     private Integer vie;
-
-    /**
-     * @attribute
-     */
     private static Integer c_vieInitiale = 200;
-
-    /**
-     * @attribute
-     */
     private Integer idg;
-
-    /**
-     * @associates <{uml.Arme}>
-     */
-    Collection<Integer> appartient;
+    Collection<Arme> appartient;
 
     public Gladiateur(String nom, Integer idg) {
         this.nom = nom;
@@ -61,9 +45,9 @@ public abstract class Gladiateur {
     }
 
     public void perdreArme(Integer ida) {
-        Integer i = 0;            
+        Integer i = 0;
         boolean continu = true;
-        
+
         while(i < appartient.size() && continu){
             if (appartient.toArray()[i] == ida){
                 appartient.remove(appartient.toArray()[i]);
