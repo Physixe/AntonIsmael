@@ -9,7 +9,7 @@ public class Mirmillon extends Gladiateur {
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax;
     private Integer poids;
-    static Collection armeAccessMirmillon;
+    static Collection<Arme> armeAccessMirmillon;
     Collection<Gladiateur> agresseur;
 
     public Mirmillon(String nom, Integer poids, Integer idg, Integer ide) {
@@ -59,20 +59,24 @@ public class Mirmillon extends Gladiateur {
     }
 
     public Integer getForce() {
+      return (poids/2);
     }
 
-    public Collection getArmesDispoMir() {
+    public Collection<Arme> getArmesDispoMir() {
+      return armeAccessMirmillon;
     }
 
     public static void c_setPoidsMax(Integer p) {
+      this.c_poidsMax = p;
     }
 
-    public Collection listerAgresseurs() {
+    public Collection<Gladiateur> listerAgresseurs() {
+      return agresseur;
     }
 
-    public void addArmeDispoMir(Integer ida) {
-    }
-
-    public void autoriserArmeMirmillon() {
+    public void autoriserArmeMirmillon(Arme arme) {
+      if (gArme.getArmes().contains(arme) && !armeAccessMirmillon.contains(arme)){
+        armeAccessMirmillon.add(arme);
+      }
     }
 }
