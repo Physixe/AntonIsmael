@@ -18,7 +18,8 @@ public class Retiaire extends Gladiateur {
     }
 
     public static void c_setAgiliteMax(Integer a) {
-      c_agiliteMax = agilite;
+        if (a>0)
+            c_agiliteMax = agilite;
     }
 
     public String rapporter() {
