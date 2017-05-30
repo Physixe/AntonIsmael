@@ -1,0 +1,63 @@
+Resultat attendu du jeu de test "Test0" 
+=======================================
+
+
+----> 0. Lancement du jeu d'essai ============
+----> 1. Creation d'un retiaire 
+Rapport du Retiaire  N°7 : Retor     ; ethnie :Dalmates ; je suis bien portant    ; points de vie:200 ; ma force: 30; mon agilité:40  ; mes armes :[]
+----> 2. Creation d'un mirmillon 
+Rapport du Mirmillon N°8 : Mirmor    ; ethnie :Thraces  ; je suis bien portant    ; points de vie:200 ; ma force: 30 ; mon poids :60  ; mes armes :[] ; mes agresseurs : []
+----> 3. Creation d'une arme 
+Arme 7 lance ; off:80 ;def:10
+----> 4. Autoriser cette arme aux mirmillons 
+----> 5. Autoriser cette arme aux retiaires 
+----> 6. Armes disponibles pour Mirmillons
+        Arme 1 glaive ; off:80 ;def:0 dispoMir  dispoRet 
+        Arme 4 bouclier ; off:40 ;def:40 dispoMir 
+        Arme 5 casque ; off:0 ;def:20 dispoMir 
+        Arme 6 jambiere ; off:0 ;def:10 dispoMir  dispoRet 
+        Arme 7 lance ; off:80 ;def:10 dispoMir  dispoRet 
+
+----> 7. Armes disponibles pour Retiaires 
+        Arme 1 glaive ; off:80 ;def:0 dispoMir  dispoRet 
+        Arme 2 trident ; off:100 ;def:0 dispoRet 
+        Arme 3 filet ; off:40 ;def:20 dispoRet 
+        Arme 6 jambiere ; off:0 ;def:10 dispoMir  dispoRet 
+        Arme 7 lance ; off:80 ;def:10 dispoMir  dispoRet 
+
+----->12. Donner l'arme :7 (lance) au gladiateur N°7 Retor
+----->12. Donner une arme interdite 4:Bouclier au gladiateur N°7 Retor
+
+----->8. Debut du combat : Les gladiateurs saluent et déclarent leurs armes ================
+        Ave Caesar ! Retiaire  N°1 : Unix       de l'ethnie Gaulois  ; Mes armes : trident, filet, jambiere, 
+        Ave Caesar ! Mirmillon N°2 : Informatix de l'ethnie Gaulois  ; Mes armes : glaive, bouclier, casque, jambiere, 
+        Ave Caesar ! Retiaire  N°3 : Ceplusplus de l'ethnie Thraces  ; Mes armes : trident, jambiere, 
+        Ave Caesar ! Mirmillon N°4 : Pythonus   de l'ethnie Thraces  ; Mes armes : glaive, bouclier, 
+        Ave Caesar ! Retiaire  N°5 : Szervlet   de l'ethnie Dalmates ; Mes armes : glaive, jambiere, 
+        Ave Caesar ! Mirmillon N°6 : Ramazmjet  de l'ethnie Dalmates ; Mes armes : bouclier, casque, 
+        Ave Caesar ! Retiaire  N°7 : Retor      de l'ethnie Dalmates ; Mes armes : lance, 
+        Ave Caesar ! Mirmillon N°8 : Mirmor     de l'ethnie Thraces  ; Mes armes : 
+
+----->13. Frapper( agresseur:1, agressé: 4, arme utilisée:2 )
+----->13. Frapper( agresseur:7, agressé: 4, arme utilisée:7 )
+----->13. Frapper( agresseur:4, agressé: 1, arme utilisée:4 )
+----->14. Desarmer ( desarmé:1 , arme retirée:2(trident) )  
+
+----->15. Fin du combat  
+    ====== Tous les scores ==============
+     Ethnie 1 Gaulois  ; score:20
+     Ethnie 2 Thraces  ; score:25
+     Ethnie 3 Dalmates ; score:30
+
+    ====== rapports ==============
+Rapport du Retiaire  N°1 : Unix      ; ethnie :Gaulois  ; je suis bien portant    ; points de vie:190 ; ma force: 30; mon agilité:30  ; mes armes :[filet, jambiere]
+Rapport du Mirmillon N°2 : Informatix; ethnie :Gaulois  ; je suis bien portant    ; points de vie:200 ; ma force: 50 ; mon poids :100  ; mes armes :[glaive, bouclier, casque, jambiere] ; mes agresseurs : []
+Rapport du Retiaire  N°3 : Ceplusplus; ethnie :Thraces  ; je suis bien portant    ; points de vie:200 ; ma force: 30; mon agilité:40  ; mes armes :[trident, jambiere]
+Rapport du Mirmillon N°4 : Pythonus  ; ethnie :Thraces  ; je suis blessé          ; points de vie:40 ; ma force: 30 ; mon poids :60  ; mes armes :[glaive, bouclier] ; mes agresseurs : [Unix      , Retor     ]
+Rapport du Retiaire  N°5 : Szervlet  ; ethnie :Dalmates ; je suis bien portant    ; points de vie:200 ; ma force: 30; mon agilité:50  ; mes armes :[glaive, jambiere]
+Rapport du Mirmillon N°6 : Ramazmjet ; ethnie :Dalmates ; je suis bien portant    ; points de vie:200 ; ma force: 40 ; mon poids :80  ; mes armes :[bouclier, casque] ; mes agresseurs : []
+Rapport du Retiaire  N°7 : Retor     ; ethnie :Dalmates ; je suis bien portant    ; points de vie:200 ; ma force: 30; mon agilité:40  ; mes armes :[lance]
+Rapport du Mirmillon N°8 : Mirmor    ; ethnie :Thraces  ; je suis bien portant    ; points de vie:200 ; ma force: 30 ; mon poids :60  ; mes armes :[] ; mes agresseurs : []
+    ===== vainqueurs ===============
+     Ethnie 3 Dalmates ; score:30
+Process exited with exit code 0.
