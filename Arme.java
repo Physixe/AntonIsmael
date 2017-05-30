@@ -1,40 +1,32 @@
-package uml;
+package packglad;
 
 public class Arme {
-    /**
-     * @attribute
-     */
+    private String nom;
     private Integer puissanceOff;
     private Integer puissanceDef;
-    private Boolean dispoMir;
     private Integer ida;
-    private String nom;
-    private Boolean dispoRet;
+    
 
-    public Arme(String nom, Integer puissanceOff, Integer puissanceDef, Integer ida) {
-    }
-
-    public Boolean getDispoMir() {
+    public Arme(String nom, Integer puissanceOff, Integer puissanceDef) {
+        this.nom=nom;
+        this.puissanceOff= puissanceOff;
+        this.puissanceDef=puissanceDef;
+        this.ida=gArme.nextIda;
     }
 
     public String getNom() {
-    }
-
-    public void setDispoRet() {
+        return this.nom;
     }
 
     public Integer getValOff() {
-    }
-
-    public void setDispoMir() {
+        return this.puissanceOff;
     }
 
     public Integer getValDef() {
-    }
-
-    public Boolean getDispoRet() {
+        return this.puissanceDef;
     }
 
     public Integer getIda() {
+        return this.ida;
     }
 }
