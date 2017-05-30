@@ -3,97 +3,55 @@ package packglad;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public abstract class Gladiateur {
+public class gGladiateur {
+   
+    protected static Integer nextIdg = 1;
+
+    private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
-    private String nom;
-    private Integer vie;
-
-    private static Integer c_vieInitiale = 200;
-
-    private Integer idg;
-    
-    private Ethnie ethnie;
-
-    /**
-     * @associates <{uml.Arme}>
-     */
-    private static ArrayList<Arme> appartient = new ArrayList<Arme>();
-
-    public Gladiateur(String nom, Ethnie ethnie) {
-        this.nom = nom;
-        this.idg = gGladiateur.nextIdg;
-        this.vie = c_vieInitiale;
-        this.ethnie= ethnie;
-        gGladiateur.nextIdg ++;
+    public static ArrayList<Gladiateur> ListerGladiateurs() {
+        return tsLesGladiateurs;
     }
 
-    public String getNom() {
-        return nom;
+    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ethnie) {
+        return gEthnie.getEthnie(ethnie).listerGladiateurs();
     }
 
-    public Integer getVie() {
-        return vie;
-    }
-    
-    public Integer getIdg() {
-        return idg;
-    }
-    
-    public Ethnie getEthnie(){
-        return ethnie;
-    }
-    
-    
-
-    public abstract String rapporter();
-
-    public abstract String saluer();
-
-    public void addArme(Arme a) {
-        appartient.add(a);
-    }
-
-    public void frapper(Gladiateur victime, Arme a) {
-        victime.recoitCoups(this, a);
-    }
-
-    public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
-
-    public static void c_setVieInitiale(Integer v) {
-        packglad.Gladiateur.c_vieInitiale = v;
-    }
-
-    public void perdreArme(Integer ida) {
+    public static Gladiateur getGladiateur(Integer idg) 
+    {
         Integer i = 0;            
-        boolean continu = true;
+        boolean trouve = false;
         
-        while(i < appartient.size() && continu){
-            if (appartient.toArray()[i] == ida){
-                appartient.remove(appartient.toArray()[i]);
-                continu = false;
+        while(i < tsLesGladiateurs.size() && !trouve)
+        {
+            if (tsLesGladiateurs.toArray()[i] == idg)
+            {
+                trouve = true;
             }
             i++;
         }
-    }
-
-    public abstract Integer getForce();
-
-    public ArrayList<Arme> declarerArmes() {
-        return appartient;
+        return gGladiateur.tsLesGladiateurs.get(i);
     }
     
-    public String getEtat() {
-        String res = "";
-        if (this.vie<10)
-            res = "moribond";
-        else if (this.vie >= 10 && this.vie <= 50)
-            res = "blessé";
-        else
-            res = "vivant";
+    public static Integer nouveauMirmillion(String nom, Integer poids, Ethnie ethnie) {
+        Integer res = -1;
+        
+        if(gEthnie.listerEthnies().contains(ethnie))
+        {
+            res = new Mirmillon(nom,ethnie,poids).getIdg();
+            nextIdg++;
+        }
+        return res;
+    }
+
+    public static Integer nouveauRetiaire(String nom, Integer agilite, Ethnie ethnie) {
+        int res = -1;
+        if(gEthnie.listerEthnies().contains(ethnie)) 
+        {
+            res = new Retiaire(nom,agilite, ethnie).getIdg();
+            nextIdg++;
+        }
         return res;
     }
     
-    public void setVie(Integer v) {
-        this.vie=v;
-    }
 }
