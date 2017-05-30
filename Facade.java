@@ -96,10 +96,11 @@ public class Facade {
     }
     public static Integer donnerUneArme(Integer ida, Integer idg) {
         //donne l'arme ida au gladiateur idg
-        
+        return gGladiateur.getGladiateur(idg).addArme(gArme.getArme(ida));
     }
     public static Collection<Integer> listerArmesDispoMirmillon() {
         //retourne la liste des ida des armes disponibles aux mirmillons
+        
     }
     public static Collection<Integer> listerArmesDispoRetiaire() {
         //retourne la liste des ida des armes disponibles aux r�tiaires
