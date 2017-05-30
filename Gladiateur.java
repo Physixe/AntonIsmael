@@ -49,9 +49,7 @@ public abstract class Gladiateur {
 
     public abstract String saluer();
 
-    public void addArme(Arme a) {
-        appartient.add(a);
-    }
+    
 
     public void frapper(Gladiateur victime, Arme a) {
         victime.recoitCoups(this, a);
@@ -76,15 +74,25 @@ public abstract class Gladiateur {
         }
     }
     
+    public Integer addArme(Arme a) {
+        int res=-1;
+        if(!this.declarerArmes().contains(a) &&gArme.getArmes().contains(a))
+        {
+            appartient.add(a);
+            res = a.getIda();
+        }
+        return res;
+    }
+    
     public Integer donnerArme(Gladiateur glad, Arme arme){
         Integer res=-1;
         if (gGladiateur.ListerGladiateurs().contains(glad) 
-            && gArme.getArmes().contains(arme) 
-            && glad.declarerArmes().contains(arme)
             && !this.declarerArmes().contains(arme)) {
             glad.perdreArme(arme.getIda());
             this.addArme(arme);
+            res=arme.getIda();
         }
+        return res;
     }
 
     public abstract Integer getForce();
