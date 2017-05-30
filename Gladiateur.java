@@ -1,21 +1,30 @@
-package uml;
+package packglad;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class Gladiateur {
-    /**
-     * @attribute
-     */
+    
     private String nom;
     private Integer vie;
-    private static Integer c_vieInitiale = 200;
-    private Integer idg;
-    Collection<Arme> appartient;
 
-    public Gladiateur(String nom, Integer idg) {
+    private static Integer c_vieInitiale = 200;
+
+    private Integer idg;
+    
+    private Ethnie ethnie;
+
+    /**
+     * @associates <{uml.Arme}>
+     */
+    private static ArrayList<Arme> appartient = new ArrayList<Arme>();
+
+    public Gladiateur(String nom, Ethnie ethnie) {
         this.nom = nom;
-        this.idg = idg;
+        this.idg = gGladiateur.nextIdg;
         this.vie = c_vieInitiale;
+        this.ethnie= ethnie;
+        gGladiateur.nextIdg ++;
     }
 
     public String getNom() {
@@ -25,13 +34,23 @@ public abstract class Gladiateur {
     public Integer getVie() {
         return vie;
     }
+    
+    public Integer getIdg() {
+        return idg;
+    }
+    
+    public Ethnie getEthnie(){
+        return ethnie;
+    }
+    
+    
 
     public abstract String rapporter();
 
     public abstract String saluer();
 
-    public void addArme(Integer ida) {
-        appartient.add(ida);
+    public void addArme(Arme a) {
+        appartient.add(a);
     }
 
     public void frapper(Gladiateur victime, Arme a) {
@@ -41,13 +60,13 @@ public abstract class Gladiateur {
     public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
 
     public static void c_setVieInitiale(Integer v) {
-        uml.Gladiateur.c_vieInitiale = v;
+        packglad.Gladiateur.c_vieInitiale = v;
     }
 
     public void perdreArme(Integer ida) {
-        Integer i = 0;
+        Integer i = 0;            
         boolean continu = true;
-
+        
         while(i < appartient.size() && continu){
             if (appartient.toArray()[i] == ida){
                 appartient.remove(appartient.toArray()[i]);
@@ -59,7 +78,22 @@ public abstract class Gladiateur {
 
     public abstract Integer getForce();
 
-    public Collection declarerArmes() {
+    public ArrayList<Arme> declarerArmes() {
         return appartient;
+    }
+    
+    public String getEtat() {
+        String res = "";
+        if (this.vie<10)
+            res = "moribond";
+        else if (this.vie >= 10 && this.vie <= 50)
+            res = "blessé";
+        else
+            res = "vivant";
+        return res;
+    }
+    
+    public void setVie(Integer v) {
+        this.vie=v;
     }
 }
