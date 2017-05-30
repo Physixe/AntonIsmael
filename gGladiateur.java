@@ -1,36 +1,57 @@
-package uml;
+package packglad;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class gGladiateur {
-    /**
-     * @attribute
-     */
-    private static Integer nextIdg = 1;
+   
+    protected static Integer nextIdg = 1;
 
-    /**
-     * @associates <{uml.Gladiateur}>
-     */
-    private static Collection<Gladiateur> tsLesGladiateurs;
+    private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
-    public static Collection<Gladiateur> ListerGladiateurs() {
+    public static ArrayList<Gladiateur> ListerGladiateurs() {
         return tsLesGladiateurs;
     }
 
-    public static Collection<Gladiateur> ListerGladiateurs(Integer ideEthnie) {
-        return gEthnie.getEthnie(ideEthnie).listerGladiateurs();
+    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ethnie) {
+        return gEthnie.getEthnie(ethnie).listerGladiateurs();
     }
 
-    public static Gladiateur getGladiateur(Integer idg) {
+    public static Gladiateur getGladiateur(Integer idg) 
+    {
         Integer i = 0;            
-        boolean continu = true;
+        boolean trouve = false;
         
-        while(i < tsLesGladiateurs.size() && continu){
-            if (tsLesGladiateurs.toArray()[i] == idg){
-                continu = false;
+        while(i < tsLesGladiateurs.size() && !trouve)
+        {
+            if (tsLesGladiateurs.toArray()[i] == idg)
+            {
+                trouve = true;
             }
             i++;
         }
+        return gGladiateur.tsLesGladiateurs.get(i);
     }
+    
+    public static Integer nouveauMirmillion(String nom, Integer poids, Ethnie ethnie) {
+        Integer res = -1;
+        
+        if(gEthnie.listerEthnies().contains(ethnie))
+        {
+            res = new Mirmillon(nom,ethnie,poids).getIdg();
+            nextIdg++;
+        }
+        return res;
+    }
+
+    public static Integer nouveauRetiaire(String nom, Integer agilite, Ethnie ethnie) {
+        int res = -1;
+        if(gEthnie.listerEthnies().contains(ethnie)) 
+        {
+            res = new Retiaire(nom,agilite, ethnie).getIdg();
+            nextIdg++;
+        }
+        return res;
+    }
+    
 }
