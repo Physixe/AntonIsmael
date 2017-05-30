@@ -109,7 +109,7 @@ public class Facade {
     public static Collection<Integer> listerArmesDispoMirmillon() {
         //retourne la liste des ida des armes disponibles aux mirmillons
         Collection<Integer> res = null;
-        for (Arme a : Mirmillon.getArmesDispoMir()) {
+        for (Arme a : Mirmillon.c_getArmesDispoMir()) {
             res.add(a.getIda());
         }
         return res;
@@ -117,7 +117,7 @@ public class Facade {
     public static Collection<Integer> listerArmesDispoRetiaire() {
         //retourne la liste des ida des armes disponibles aux r�tiaires
         Collection<Integer> res = null;
-        for (Arme a : Retiaire.getArmesDispoRet()) {
+        for (Arme a : Retiaire.c_getArmesDispoRet()) {
             res.add(a.getIda());
         }
         return res;
@@ -128,18 +128,18 @@ public class Facade {
         String dispoMir = "Non";
         String dispoRet = "Non";
         Arme a = gArme.getArme(ida);
-        if(Mirmillon.getArmesDispoMir().contains(gArme.getArme(a))){
+        if(Mirmillon.c_getArmesDispoMir().contains(a)){
           dispoMir = "Oui";
         }
-        if(Retiaire.getArmesDispoRet().contains(gArme.getArme(a))){
+        if(Retiaire.c_getArmesDispoRet().contains(a)){
           dispoRet = "Oui";
         }
-        desc += "ida : {0}\n", a.getIda();
-        desc += "nom : {0}\n", a.getNom();
-        desc += "valOff : {0}\n", a.getValOff();
-        desc += "ValDef : {0}\n", a.getValDef();
-        desc += "dispoMir : {0}\n", dispoMir;
-        desc += "dispoRet : {0}\n", dispoRet;
+        desc += "ida : "      + a.getIda()    + "\n" 
+             +  "nom : "      + a.getNom()    + "\n" 
+             +  "valOff : "   + a.getValOff() + "\n"
+             +  "ValDef : "   + a.getValDef() + "\n"
+             +  "dispoMir : " + dispoMir      + "\n"
+             +  "dispoRet : " + dispoRet      + "\n";
         return desc;
     }
 	public static String nomDeLArme(Integer ida) {
