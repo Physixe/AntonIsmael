@@ -1,5 +1,6 @@
-package uml;
+package packglad;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class Mirmillon extends Gladiateur {
@@ -9,11 +10,11 @@ public class Mirmillon extends Gladiateur {
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax;
     private Integer poids;
-    static Collection<Arme> armeAccessMirmillon;
-    Collection<Gladiateur> agresseur;
+    static ArrayList<Arme> armeAccessMirmillon;
+    ArrayList<Gladiateur> agresseur;
 
-    public Mirmillon(String nom, Integer poids, Integer idg, Integer ide) {
-        super(nom,idg, ide);
+    public Mirmillon(String nom, Ethnie ethnie, Integer poids) {
+        super(nom, ethnie);
         this.poids = poids;
     }
 
@@ -26,7 +27,7 @@ public class Mirmillon extends Gladiateur {
         agresseur.add(glad);//se souvient du gladiateur qui l'a frappé
 
         Integer val_deff = 0;
-        for (Arme a : appartient){//accumule la valeur defensive des armes du gladiateur
+        for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
             val_deff += a.getValDef();
         }
 
@@ -42,17 +43,17 @@ public class Mirmillon extends Gladiateur {
       String rapport;
       String armes = "";
 
-      for (Arme a : appartient){
+      for (Arme a : this.declarerArmes()){
           armes += a.getNom() + ", ";
       }
 
       rapport = "Identifiant : " + this.getIdg()
       + "\nNom : " + this.getNom()
-      + "\nEthnie : " + getEthnie(this.getIde()).getNom();
+      + "\nEthnie : " + this.getEthnie().getNom()
       + "\nEtat : " + this.getEtat()
       + "\nVie : " + this.getVie()
       + "\nForce : " + this.getForce()
-      + "\nPoids : " + this.poids()
+      + "\nPoids : " + this.poids
       + "\nArmes : " + armes;
 
       return rapport;
@@ -62,21 +63,33 @@ public class Mirmillon extends Gladiateur {
       return (poids/2);
     }
 
-    public Collection<Arme> getArmesDispoMir() {
+    public ArrayList<Arme> getArmesDispoMir() {
       return armeAccessMirmillon;
     }
 
     public static void c_setPoidsMax(Integer p) {
-      this.c_poidsMax = p;
+        c_poidsMax = p;
     }
 
-    public Collection<Gladiateur> listerAgresseurs() {
+    public ArrayList<Gladiateur> listerAgresseurs() {
       return agresseur;
     }
 
-    public void autoriserArmeMirmillon(Arme arme) {
-      if (gArme.getArmes().contains(arme) && !armeAccessMirmillon.contains(arme)){
-        armeAccessMirmillon.add(arme);
-      }
+    public static Integer c_autoriserArmeMirmillon(Arme arme) {
+        int res=-1;
+        if (gArme.getArmes().contains(arme) && !armeAccessMirmillon.contains(arme))
+        {
+            armeAccessMirmillon.add(arme);
+            res = arme.getIda();
+        }
+        return res;
+    }
+    
+    public String saluer(){
+        return "Ave Caesar, Mirmillon N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens à l'ethnie des " + this.getEthnie().getNom();
+    }
+    
+    public String getType(){
+        return "Retiaire";
     }
 }
