@@ -1,12 +1,10 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class gGladiateur {
    
     protected static Integer nextIdg = 1;
-
     private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
     public static ArrayList<Gladiateur> ListerGladiateurs() {

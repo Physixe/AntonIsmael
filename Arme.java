@@ -1,12 +1,12 @@
 package packglad;
 
 public class Arme {
+	
     private String nom;
     private Integer puissanceOff;
     private Integer puissanceDef;
     private Integer ida;
     
-
     public Arme(String nom, Integer puissanceOff, Integer puissanceDef) {
         this.nom=nom;
         this.puissanceOff= puissanceOff;

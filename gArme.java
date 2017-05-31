@@ -1,13 +1,11 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class gArme {
+	
     static Integer nextIda = 1;
-
-    private static ArrayList<Arme> ttesLesArmes=new ArrayList<Arme>();
-    
+    private static ArrayList<Arme> ttesLesArmes=new ArrayList<Arme>();   
 
     public static Integer nouvelleArme(String nom, Integer puissanceOff, Integer puissanceDef) {
             ttesLesArmes.add(new Arme(nom,puissanceOff, puissanceDef));

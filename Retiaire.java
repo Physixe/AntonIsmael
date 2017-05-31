@@ -1,7 +1,6 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Retiaire extends Gladiateur {
     
@@ -49,7 +48,7 @@ public class Retiaire extends Gladiateur {
           return rapport;
         }
 
-    public ArrayList<Arme> getArmesDispoRet() {
+    public static ArrayList<Arme> getArmesDispoRet() {
         return c_armesAccessRetiaire;
     }
 
@@ -92,6 +91,6 @@ public class Retiaire extends Gladiateur {
     }
     
     public String getType(){
-        return "Retiaire";
+        return c_type;
     }
 }

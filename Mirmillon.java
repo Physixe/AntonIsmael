@@ -1,20 +1,21 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Mirmillon extends Gladiateur {
-    /**
-     * @attribute
-     */
+
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax;
     private Integer poids;
     static ArrayList<Arme> armeAccessMirmillon;
-    ArrayList<Gladiateur> agresseur;
+    ArrayList<Gladiateur> agresseur = new ArrayList<Gladiateur>();
 
     public Mirmillon(String nom, Ethnie ethnie, Integer poids) {
-        super(nom, ethnie);
+    	super(nom, ethnie);
+    	if (poids > Mirmillon.c_poidsMax)
+        {
+        	poids = Mirmillon.c_poidsMax;
+        }
         this.poids = poids;
     }
 
@@ -63,7 +64,7 @@ public class Mirmillon extends Gladiateur {
       return (poids/2);
     }
 
-    public ArrayList<Arme> getArmesDispoMir() {
+    public static ArrayList<Arme> getArmesDispoMir() {
       return armeAccessMirmillon;
     }
 
@@ -90,6 +91,6 @@ public class Mirmillon extends Gladiateur {
     }
     
     public String getType(){
-        return "Retiaire";
+        return c_type;
     }
 }

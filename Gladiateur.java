@@ -1,22 +1,14 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public abstract class Gladiateur {
     
     private String nom;
     private Integer vie;
-
     private static Integer c_vieInitiale = 200;
-
     private Integer idg;
-    
     private Ethnie ethnie;
-
-    /**
-     * @associates <{uml.Arme}>
-     */
     private static ArrayList<Arme> appartient = new ArrayList<Arme>();
 
     public Gladiateur(String nom, Ethnie ethnie) {
