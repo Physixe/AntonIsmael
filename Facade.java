@@ -231,7 +231,7 @@ public class Facade {
         //Renvoie la description de l'ethnie : ide,nom,score)
         return "Ethnie : "+ ide + "\n"
                 + "Nom : " + gEthnie.getEthnie(ide).getNom() + "\n"
-                + "Score : " + getScore(ide);
+                + "Score : " + getScore(ide) + "\n";
         
     }
     public static Integer getScore(Integer ide) {
