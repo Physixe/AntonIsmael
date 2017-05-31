@@ -10,14 +10,14 @@ public class Facade {
         return 0;
     }
     public static void lancerJeuDEssai() {
-        //System.out.println("============ Creation des 3 ethnies ============");
+        System.out.println("============ Creation des 3 ethnies ============");
         
         Integer ethnie1 = gEthnie.creerEthnie(1, "Gaulois");
         Integer ethnie2 = gEthnie.creerEthnie(2, "Thraces");
         Integer ethnie3 = gEthnie.creerEthnie(3, "Dalmates");
         
         
-        //System.out.println("============ Creation des 6 Armes  ============");  
+        System.out.println("============ Creation des 6 Armes  ============");  
         
         Integer arme1 = creerUneArme("Glaive", 80, 0);
         Integer arme2 = creerUneArme("Trident", 100, 0);
@@ -36,7 +36,7 @@ public class Facade {
         autoriserArmeAuxRetiaires(arme6);
 
         
-        //System.out.println("============ Creation des 6 Gladiateurs  ============");
+        System.out.println("============ Creation des 6 Gladiateurs  ============");
         
         Integer glad1 = creerRetiaire("Unix", 30, ethnie1);
         Integer glad2 = creerMirmillon("Informatix", 100, ethnie1);
@@ -45,7 +45,7 @@ public class Facade {
         Integer glad5 = creerRetiaire("Szervlet", 50, ethnie3);
         Integer glad6 = creerMirmillon("Ramazmjet", 80, ethnie3);
         
-        //System.out.println("============ Attribution des 15 armes  ============");
+        System.out.println("============ Attribution des 15 armes  ============");
         
         donnerUneArme(glad1, arme2);
         donnerUneArme(glad1, arme6);
@@ -87,7 +87,7 @@ public class Facade {
     }
     public static Collection<Integer> listerTousGladiateurs() {
         //retourne la liste des idg de tous les gladiateurs
-        Collection<Integer> res= null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         for(Gladiateur g : gGladiateur.ListerGladiateurs()) {
             res.add(g.getIdg());
         }
@@ -96,7 +96,7 @@ public class Facade {
     
     public static Collection<Integer> listerAgresseurs(Integer idg) {
         //  retourne la liste des idg des agresseurs du gladiateur idg (si idg est un mirmillon sinon rien)
-        Collection<Integer> res = null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         
         if(gGladiateur.getGladiateur(idg).getType()=="Mirmillon") {
             for (Gladiateur g : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
@@ -122,7 +122,7 @@ public class Facade {
     }
     public static Collection<Integer> declarerArmes(Integer idg) {
         // retourne la liste des ida des armes du gladiateur idg
-        Collection<Integer> res = null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         for (Arme a : gArme.getArmes()) {
             res.add(a.getIda());
         }
@@ -169,7 +169,7 @@ public class Facade {
     }
     public static Collection<Integer> listerArmesDispoMirmillon() {
         //retourne la liste des ida des armes disponibles aux mirmillons
-        Collection<Integer> res = null;
+        ArrayList<Integer> res = new ArrayList<Integer>();
          for (Arme a : Mirmillon.c_getArmesDispoMir()) {
             res.add(a.getIda());
          }
@@ -177,7 +177,7 @@ public class Facade {
     }
     public static Collection<Integer> listerArmesDispoRetiaire() {
         //retourne la liste des ida des armes disponibles aux r�tiaires
-        Collection<Integer> res = null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         for (Arme a : Retiaire.c_getArmesDispoRet()) {
             res.add(a.getIda());
         }
@@ -212,7 +212,7 @@ public class Facade {
 // Les ethnies 
     public static Collection<Integer> listerEthnies() {
         //retourne la liste des ide de toutes les ethnies
-        Collection<Integer> res = null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         
         for(Ethnie e : gEthnie.listerEthnies()) {
             res.add(e.getIde());
@@ -221,7 +221,7 @@ public class Facade {
     }
     public static Collection<Integer> listerGladiateursDEthnie(Integer ide) {
         //liste des idg des gladiateurs de l'ethnie ide
-        Collection<Integer> res = null;
+    	ArrayList<Integer> res = new ArrayList<Integer>();
         
         for(Gladiateur g : gEthnie.listerGladiateursDEthnie(ide))
             res.add(g.getIdg());
@@ -250,8 +250,7 @@ public class Facade {
     }
     public static Collection<Integer> vainqueurs() {
         //renvoie le ou les ide de l'ethnie (des ethnies ex aequo) gagnante/s
-        Collection<Integer> vainqueurs = null;
-        ArrayList<Ethnie> ethnie = new ArrayList<Ethnie>();
+    	ArrayList<Integer> vainqueurs = new ArrayList<Integer>();
         Integer scoreMax = 0;
         for (int i=0; i< listerEthnies().size(); i++) 
         {

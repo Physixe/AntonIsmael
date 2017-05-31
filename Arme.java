@@ -8,11 +8,11 @@ public class Arme {
     private Integer ida;
     
 
-    public Arme(String nom, Integer puissanceOff, Integer puissanceDef) {
+    public Arme(String nom, Integer puissanceOff, Integer puissanceDef, Integer ida) {
         this.nom=nom;
         this.puissanceOff= puissanceOff;
         this.puissanceDef=puissanceDef;
-        this.ida=gArme.nextIda;
+        this.ida=ida;
     }
 
     public String getNom() {

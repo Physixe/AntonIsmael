@@ -10,9 +10,10 @@ public class gArme {
     
 
     public static Integer nouvelleArme(String nom, Integer puissanceOff, Integer puissanceDef) {
-            ttesLesArmes.add(new Arme(nom,puissanceOff, puissanceDef));
-            nextIda ++;
-            return nextIda;
+            ttesLesArmes.add(new Arme(nom,puissanceOff, puissanceDef, nextIda));
+            Integer res = nextIda;
+            nextIda++;
+            return res;  
         }
         
 
@@ -30,10 +31,6 @@ public class gArme {
             else
                 i++;
         }
-        for (Arme a : ttesLesArmes){
-        	System.out.println(a.toString());
-        }
-        System.out.println("#######");
         return res;
     }
     

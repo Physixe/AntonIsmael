@@ -23,7 +23,7 @@ public abstract class Gladiateur {
         this.idg = gGladiateur.nextIdg;
         this.vie = c_vieInitiale;
         this.ethnie= ethnie;
-        gGladiateur.nextIdg ++;
+        //gGladiateur.nextIdg ++;
     }
 
     public String getNom() {
