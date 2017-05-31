@@ -6,7 +6,6 @@ import java.util.Collection;
 public class gGladiateur {
    
     protected static Integer nextIdg = 1;
-
     private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
     public static ArrayList<Gladiateur> ListerGladiateurs() {
@@ -21,16 +20,17 @@ public class gGladiateur {
     {
         Integer i = 0;            
         boolean trouve = false;
-        
+        Gladiateur res = null;
         while(i < tsLesGladiateurs.size() && !trouve)
         {
-            if (tsLesGladiateurs.toArray()[i] == idg)
+            if (tsLesGladiateurs.get(i).getIdg() == idg)
             {
+            	res = gGladiateur.tsLesGladiateurs.get(i);
                 trouve = true;
             }
             i++;
         }
-        return gGladiateur.tsLesGladiateurs.get(i);
+        return res;
     }
     
     public static Integer nouveauMirmillion(String nom, Integer poids, Ethnie ethnie) {
@@ -38,8 +38,10 @@ public class gGladiateur {
         
         if(gEthnie.listerEthnies().contains(ethnie))
         {
-            res = new Mirmillon(nom,ethnie,poids).getIdg();
+        	Mirmillon m = new Mirmillon(nom,ethnie,poids);
+            res = m.getIdg();
             nextIdg++;
+            tsLesGladiateurs.add(m);
         }
         return res;
     }
@@ -48,8 +50,10 @@ public class gGladiateur {
         int res = -1;
         if(gEthnie.listerEthnies().contains(ethnie)) 
         {
-            res = new Retiaire(nom,agilite, ethnie).getIdg();
+        	Retiaire r = new Retiaire(nom,agilite, ethnie);
+            res = r.getIdg();
             nextIdg++;
+            tsLesGladiateurs.add(r);
         }
         return res;
     }

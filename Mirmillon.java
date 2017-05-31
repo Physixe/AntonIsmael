@@ -8,9 +8,9 @@ public class Mirmillon extends Gladiateur {
      * @attribute
      */
     private static String c_type = "Mirmillon";
-    private static Integer c_poidsMax;
+    private static Integer c_poidsMax = 100;
     private Integer poids;
-    static ArrayList<Arme> armeAccessMirmillon;
+    static ArrayList<Arme> armeAccessMirmillon=new ArrayList<Arme>();
     ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
     public Mirmillon(String nom, Ethnie ethnie, Integer poids) {
@@ -88,6 +88,7 @@ public class Mirmillon extends Gladiateur {
                 armeAccessMirmillon.add(arme);
                 res = arme.getIda();
             }
+        
         return res;
     }
     

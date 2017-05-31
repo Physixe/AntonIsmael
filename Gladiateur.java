@@ -76,7 +76,7 @@ public abstract class Gladiateur {
     }
     
     public Integer addArme(Arme a) {
-        int res=-1;
+        Integer res=-1;
         if(!this.declarerArmes().contains(a) &&gArme.getArmes().contains(a))
         {
             appartient.add(a);
@@ -84,7 +84,7 @@ public abstract class Gladiateur {
         }
         return res;
     }
-    
+    /*
     public Integer donnerArme(Gladiateur glad, Arme arme){
         Integer res=-1;
         if (gGladiateur.ListerGladiateurs().contains(glad) 
@@ -95,6 +95,7 @@ public abstract class Gladiateur {
         }
         return res;
     }
+    */
 
     public abstract Integer getForce();
 

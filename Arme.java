@@ -1,6 +1,7 @@
 package packglad;
 
 public class Arme {
+	
     private String nom;
     private Integer puissanceOff;
     private Integer puissanceDef;

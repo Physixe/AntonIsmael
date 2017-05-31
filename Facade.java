@@ -113,7 +113,12 @@ public class Facade {
     }
     public static String faireRapport(Integer idg) {
         //retourne le rapport du gladiateur idg (cf ï¿½noncï¿½)
-        return gGladiateur.getGladiateur(idg).rapporter();
+    	String res = "L'idg ne correspond à aucun Gladiateur";
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	if (g != null){
+    		res = gGladiateur.getGladiateur(idg).rapporter();
+    	}
+        return res;
     }
     public static Collection<Integer> declarerArmes(Integer idg) {
         // retourne la liste des ida des armes du gladiateur idg
@@ -154,7 +159,13 @@ public class Facade {
     }
     public static Integer donnerUneArme(Integer ida, Integer idg) {
         //donne l'arme ida au gladiateur idg
-        return gGladiateur.getGladiateur(idg).addArme(gArme.getArme(ida));
+    	Integer res = -1;
+    	Arme a = gArme.getArme(ida);
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	if (g != null){
+    		res =  g.addArme(a);
+    	}
+        return res;
     }
     public static Collection<Integer> listerArmesDispoMirmillon() {
         //retourne la liste des ida des armes disponibles aux mirmillons
