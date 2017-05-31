@@ -3,55 +3,61 @@ package packglad;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class gGladiateur {
-   
-    protected static Integer nextIdg = 1;
+public class gEthnie {
+    /**
+     * @associates <{uml.Ethnie}>
+     */
+    private static ArrayList<Ethnie> ttesLesEthnies = new ArrayList<Ethnie>();
 
-    private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
-    
-    public static ArrayList<Gladiateur> ListerGladiateurs() {
-        return tsLesGladiateurs;
-    }
-
-    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ethnie) {
-        return gEthnie.getEthnie(ethnie).listerGladiateurs();
-    }
-
-    public static Gladiateur getGladiateur(Integer idg) 
-    {
-        Integer i = 0;            
-        boolean trouve = false;
-        
-        while(i < tsLesGladiateurs.size() && !trouve)
+    public static Collection listerGladiateursDEthnie(Integer ide) {
+        int i=0;
+        Boolean fin = false;//booléen vrai si on a trouvé l'ethnie qu'on veut parmi celles de la collection
+        while (i< ttesLesEthnies.size() && !fin) 
         {
-            if (tsLesGladiateurs.toArray()[i] == idg)
+            if(ttesLesEthnies.get(i).getIde()==ide)
             {
-                trouve = true;
+                fin=true;
             }
-            i++;
+            else
+                i++;
         }
-        return gGladiateur.tsLesGladiateurs.get(i);
-    }
-    
-    public static Integer nouveauMirmillion(String nom, Integer poids, Ethnie ethnie) {
-        Integer res = -1;
         
-        if(gEthnie.listerEthnies().contains(ethnie))
-        {
-            res = new Mirmillon(nom,ethnie,poids).getIdg();
-            nextIdg++;
-        }
-        return res;
+        return ttesLesEthnies.get(i).listerGladiateurs();
     }
 
-    public static Integer nouveauRetiaire(String nom, Integer agilite, Ethnie ethnie) {
-        int res = -1;
-        if(gEthnie.listerEthnies().contains(ethnie)) 
-        {
-            res = new Retiaire(nom,agilite, ethnie).getIdg();
-            nextIdg++;
-        }
-        return res;
+    public static ArrayList<Ethnie> listerEthnies() {
+        return ttesLesEthnies;
     }
-    
+
+    public static Ethnie getEthnie(Integer ide) {
+        int i=0;
+        Boolean fin = false;
+        while (i< ttesLesEthnies.size() && !fin) 
+        {
+            if(ttesLesEthnies.get(i).getIde()==ide)
+            {
+                fin=true;
+            }
+            else
+                i++;
+        }
+        
+        return ttesLesEthnies.get(i);
+    }
+
+    public static Integer getScore(Integer ide) {
+        int i=0;
+        Boolean fin = false;
+        while (i< ttesLesEthnies.size() && !fin) 
+        {
+            if(ttesLesEthnies.get(i).getIde()==ide)
+            {
+                fin=true;
+            }
+            else
+                i++;
+        }
+        
+        return ttesLesEthnies.get(i).calculerScore();
+    }
 }
