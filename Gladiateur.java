@@ -6,16 +6,9 @@ public abstract class Gladiateur {
     
     private String nom;
     private Integer vie;
-
     private static Integer c_vieInitiale = 200;
-
-    private Integer idg;
-    
+    private Integer idg;  
     private Ethnie ethnie;
-
-    /**
-     * @associates <{uml.Arme}>
-     */
     private static ArrayList<Arme> appartient = new ArrayList<Arme>();
 
     public Gladiateur(String nom, Ethnie ethnie) {
@@ -23,7 +16,6 @@ public abstract class Gladiateur {
         this.idg = gGladiateur.nextIdg;
         this.vie = c_vieInitiale;
         this.ethnie= ethnie;
-        //gGladiateur.nextIdg ++;
     }
 
     public String getNom() {
@@ -84,23 +76,12 @@ public abstract class Gladiateur {
         }
         return res;
     }
-    /*
-    public Integer donnerArme(Gladiateur glad, Arme arme){
-        Integer res=-1;
-        if (gGladiateur.ListerGladiateurs().contains(glad) 
-            && !this.declarerArmes().contains(arme)) {
-            glad.perdreArme(arme.getIda());
-            this.addArme(arme);
-            res=arme.getIda();
-        }
-        return res;
-    }
-    */
 
     public abstract Integer getForce();
 
     public ArrayList<Arme> declarerArmes() {
-        return new ArrayList<Arme>(appartient);
+        //return new ArrayList<Arme>(appartient);
+    	return appartient;
     }
     
     public String getEtat() {

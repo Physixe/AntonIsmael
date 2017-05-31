@@ -1,12 +1,9 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Mirmillon extends Gladiateur {
-    /**
-     * @attribute
-     */
+ 
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax = 100;
     private Integer poids;

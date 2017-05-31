@@ -1,22 +1,20 @@
 package packglad;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Retiaire extends Gladiateur {
     
     private static String c_type = "Retiaire";
     private Integer agilite;
     private static Integer c_force = 30;
-    private static Integer c_agiliteMax;
-
-    /**
-     * @associates <{uml.Arme}>
-     */
+    private static Integer c_agiliteMax = 50;
     private static ArrayList<Arme> c_armesAccessRetiaire = new ArrayList<Arme>();
 
     public Retiaire(String nom, Integer agilite, Ethnie ethnie) {
         super(nom,ethnie);
+        if (agilite > Retiaire.c_agiliteMax){
+        	agilite = Retiaire.c_agiliteMax;
+        }
         this.agilite=agilite;
     }
     
