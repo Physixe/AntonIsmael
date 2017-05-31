@@ -1,22 +1,26 @@
 package packglad;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class Mirmillon extends Gladiateur {
-
+    /**
+     * @attribute
+     */
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax;
     private Integer poids;
     static ArrayList<Arme> armeAccessMirmillon;
-    ArrayList<Gladiateur> agresseur = new ArrayList<Gladiateur>();
+    ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
     public Mirmillon(String nom, Ethnie ethnie, Integer poids) {
-    	super(nom, ethnie);
-    	if (poids > Mirmillon.c_poidsMax)
-        {
-        	poids = Mirmillon.c_poidsMax;
-        }
+        super(nom, ethnie);
+        if (poids > Mirmillon.c_poidsMax)
+         {
+         poids = Mirmillon.c_poidsMax;
+         }
         this.poids = poids;
+        
     }
 
     public static void setC_poidsMax(Integer c_poidsMax) {
@@ -64,7 +68,7 @@ public class Mirmillon extends Gladiateur {
       return (poids/2);
     }
 
-    public static ArrayList<Arme> getArmesDispoMir() {
+    public static ArrayList<Arme> c_getArmesDispoMir() {
       return armeAccessMirmillon;
     }
 
@@ -78,11 +82,12 @@ public class Mirmillon extends Gladiateur {
 
     public static Integer c_autoriserArmeMirmillon(Arme arme) {
         int res=-1;
-        if (gArme.getArmes().contains(arme) && !armeAccessMirmillon.contains(arme))
-        {
-            armeAccessMirmillon.add(arme);
-            res = arme.getIda();
-        }
+        if (!armeAccessMirmillon.isEmpty() && !gArme.getArmes().isEmpty())
+            if (gArme.getArmes().contains(arme) && !armeAccessMirmillon.contains(arme))
+            {
+                armeAccessMirmillon.add(arme);
+                res = arme.getIda();
+            }
         return res;
     }
     

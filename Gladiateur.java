@@ -6,9 +6,16 @@ public abstract class Gladiateur {
     
     private String nom;
     private Integer vie;
+
     private static Integer c_vieInitiale = 200;
+
     private Integer idg;
+    
     private Ethnie ethnie;
+
+    /**
+     * @associates <{uml.Arme}>
+     */
     private static ArrayList<Arme> appartient = new ArrayList<Arme>();
 
     public Gladiateur(String nom, Ethnie ethnie) {
@@ -43,8 +50,9 @@ public abstract class Gladiateur {
 
     
 
-    public void frapper(Gladiateur victime, Arme a) {
-        victime.recoitCoups(this, a);
+    public Integer frapper(Gladiateur victime, Arme a) {
+        victime.recoitCoups(this,a);
+        return victime.getIdg();
     }
 
     public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
@@ -53,7 +61,7 @@ public abstract class Gladiateur {
         packglad.Gladiateur.c_vieInitiale = v;
     }
 
-    public void perdreArme(Integer ida) {
+    public Integer perdreArme(Integer ida) {
         Integer i = 0;            
         boolean continu = true;
         
@@ -64,6 +72,7 @@ public abstract class Gladiateur {
             }
             i++;
         }
+        return ida;
     }
     
     public Integer addArme(Arme a) {

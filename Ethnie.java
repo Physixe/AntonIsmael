@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 
 public class Ethnie {
-	
     private Integer ide;
     private String nom;
     private Integer score;
+
     private static ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();
+
 
     public  Ethnie(Integer ide, String nom) {
         this.ide=ide;
