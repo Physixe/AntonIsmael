@@ -82,7 +82,7 @@ public class Facade {
     	Integer res = -1;
     	Ethnie e = gEthnie.getEthnie(ide);
     	if(e != null){
-    		gGladiateur.nouveauRetiaire(nom, agilite, e);
+    		res = gGladiateur.nouveauRetiaire(nom, agilite, e);
     	}
         return res;
     }
