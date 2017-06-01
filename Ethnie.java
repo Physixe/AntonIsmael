@@ -7,6 +7,7 @@ public class Ethnie {
     private Integer ide;
     private String nom;
     private ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();
+    private static boolean c_peutAjouter = true;
 
 
     public  Ethnie(Integer ide, String nom) {
@@ -50,6 +51,16 @@ public class Ethnie {
     		res = g.getIdg();
     	}
     	return res;
+    }
+    
+    public static void c_setPeutAjouter(boolean bool)
+    {
+    	c_peutAjouter = bool;
+    }
+    
+    public static boolean c_getPeutAjouter()
+    {
+    	return c_peutAjouter;
     }
     
 }

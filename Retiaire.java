@@ -12,8 +12,10 @@ public class Retiaire extends Gladiateur {
 
     public Retiaire(Integer idg, String nom, Integer agilite, Ethnie ethnie) {
         super(idg, nom,ethnie);
-        if (agilite > Retiaire.c_agiliteMax){
+        if (agilite > Retiaire.c_agiliteMax){//empeche de depasser l'agilite max
         	agilite = Retiaire.c_agiliteMax;
+        }else if(agilite < 0){//empeche d'avoir une agilite negative
+        	agilite = 0;
         }
         this.agilite=agilite;
     }
@@ -23,8 +25,11 @@ public class Retiaire extends Gladiateur {
     }
 
     public static void c_setAgiliteMax(Integer a) {
-        if (a>0)
-            c_agiliteMax=a;
+        if (a < 0)//empeche une agilite max negative
+        {
+        	a = 0;
+        }
+        c_agiliteMax=a;
     }
     
     public static Integer c_getAgiliteMax(){
@@ -66,6 +71,10 @@ public class Retiaire extends Gladiateur {
     }
 
     public static void c_setForce(Integer f) {
+    	if (f < 0)//empeche une force negative
+    	{
+    		f = 0;
+    	}
         c_force=f;
     }
 
@@ -78,8 +87,11 @@ public class Retiaire extends Gladiateur {
         
         Integer degats = glad.getForce() + arme.getValOff() - val_deff - agilite;//calcule la somme des degats et enleve la defense
 
-        if (degats > 0){//empeche des dégats négatifs
-            this.setVie(this.getVie() - degats);
+        if (degats > 0){//empeche des degats negatifs
+            this.setVie(this.getVie() - degats);//applique les degats
+            if (this.getVie() < 0 ){//empeche une vie negative
+            	this.setVie(0);
+            }
         }
     }
 

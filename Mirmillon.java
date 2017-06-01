@@ -12,9 +12,11 @@ public class Mirmillon extends Gladiateur {
 
     public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
         super(idg, nom, ethnie);
-        if (poids > Mirmillon.c_poidsMax)
+        if (poids > Mirmillon.c_poidsMax)//empeche d'avoir un poids superieur au poids max
          {
          poids = Mirmillon.c_poidsMax;
+         }else if (poids < 0){//empeche d'avoir un poids negatif
+        	 poids = 0;
          }
         this.poids = poids;     
     }
@@ -34,8 +36,11 @@ public class Mirmillon extends Gladiateur {
         
         Integer degats = glad.getForce() + arme.getValOff() - val_deff;//calcule la somme des degats et enleve la defense
 
-        if (degats > 0){//empeche des dégats négatifs
-            this.setVie(this.getVie() - degats);
+        if (degats > 0){//empeche des degats negatifs
+            this.setVie(this.getVie() - degats);//applique les degats
+            if (this.getVie() < 0 ){//empeche une vie negative
+            	this.setVie(0);
+            }
         }
     }
 
@@ -85,6 +90,10 @@ public class Mirmillon extends Gladiateur {
     }
 
     public static void c_setPoidsMax(Integer p) {
+    	if (p < 0)//empeche un poids max negatif
+    	{
+    		p = 0;
+    	}
         c_poidsMax = p;
     }
 

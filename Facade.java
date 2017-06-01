@@ -70,7 +70,7 @@ public class Facade {
         
     }
     public static void parametrage(Integer vieInit, Integer forceRet, Integer poidsMax, Integer agilMax) {
-        //permet de modifier la valeur des paramï¿½tres du jeu
+        //permet de modifier la valeur des parametres du jeu
         Gladiateur.c_setVieInitiale(vieInit);
         Retiaire.c_setForce(forceRet);
         Retiaire.c_setAgiliteMax(agilMax);
@@ -79,7 +79,12 @@ public class Facade {
 
 //Les gladiateurs
     public static Integer creerRetiaire(String nom, Integer agilite, Integer ide) {
-        return gGladiateur.nouveauRetiaire(nom, agilite, gEthnie.getEthnie(ide));
+    	Integer res = -1;
+    	Ethnie e = gEthnie.getEthnie(ide);
+    	if(e != null){
+    		gGladiateur.nouveauRetiaire(nom, agilite, e);
+    	}
+        return res;
     }
     
     public static Integer creerMirmillon(String nom, Integer poids, Integer ide) {
@@ -119,6 +124,7 @@ public class Facade {
     	{
     		res = g.saluer();
     	}
+    	Ethnie.c_setPeutAjouter(false);
         return res;
     }
     public static String faireRapport(Integer idg) {
@@ -188,14 +194,34 @@ public class Facade {
     	Integer res = -1;
     	Arme a = gArme.getArme(ida);
     	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	if (g != null && a != null){
-    		if (g.getType() == "Mirmillon" && Mirmillon.c_getArmesDispoMir().contains(a))
-    		{
-    			res =  g.addArme(a);
-    		}
-    		else if (g.getType() == "Retiaire" && Retiaire.c_getArmesDispoRet().contains(a)){
-    			res =  g.addArme(a);
-    		}
+    	if (g != null && a != null)//empeche l'acces a des elements null
+    	{
+    		if(!g.declarerArmes().contains(a))//Empeche de donner 2 fois la meme arme a un gladiateur
+			{
+        		if (g.getType() == "Mirmillon")
+        		{
+        			
+        			if (Mirmillon.c_getArmesDispoMir().contains(a))//empeche de donner une arme non autorisee
+        			{
+        				if (!g.declarerArmes().contains(a))
+        				{
+        					res =  g.addArme(a);
+        				}
+        			}else{
+        				System.out.println("Les Mirmillon ne sont pas autorise a recevoir cette arme.");
+        			}
+        		}
+        		else if (g.getType() == "Retiaire"){
+        			if (Retiaire.c_getArmesDispoRet().contains(a))//empeche de donner une arme non autorisee
+        			{
+        				res =  g.addArme(a);
+        			}else{
+        				System.out.println("Les Retiaire ne sont pas autorise a recevoir cette arme.");
+        			}
+        		}
+			}else{
+				System.out.println(g.getNom() + " possede deja cette arme.");
+			}
     	}
         return res;
     }
@@ -281,25 +307,41 @@ public class Facade {
  
 //combat 
     public static Integer frapper(Integer idgAgresseur, Integer idgVictime, Integer ida) {
-        //le gladiateur idgAgresseur frappe le gladiateur idgVictime ï¿½ l'aide de l'arme ida
+        //le gladiateur idgAgresseur frappe le gladiateur idgVictime a l'aide de l'arme ida
     	Integer res = -1;
     	Gladiateur agresseur = gGladiateur.getGladiateur(idgAgresseur);
     	Gladiateur victime = gGladiateur.getGladiateur(idgVictime);
     	Arme a = gArme.getArme(ida);
-    	if (agresseur != null && victime != null && a != null)
+    	if (agresseur != null && victime != null && a != null)//empeche l'acces a des elements null
     	{
-    		res = agresseur.frapper(victime, a);
+    		if (agresseur.getVie()>0){//empeche un gladiateur mort de frapper
+    			if (agresseur.declarerArmes().contains(a))//empeche de un gladiateur de frapper avec une arme qu'il n'a pas
+    			{
+    				res = agresseur.frapper(victime, a);
+    			}else{
+    				System.out.println(agresseur.getNom() + " ne possède pas l'arme : " + a.getNom());
+    			}
+    			
+    		}else{
+    			System.out.println(agresseur.getNom() + " (N°"+ idgAgresseur + ") est mort...");
+    		}
+    		
     	}
         return res;
     }
     public static Integer desarmer(Integer idg, Integer ida) {
-        //dÃ©pouille le gladiateur idgVictime de son arme ida
+        //depouille le gladiateur idgVictime de son arme ida
     	Integer res = -1;
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	Arme a = gArme.getArme(ida);
-    	if (g != null && a != null)
+    	if (g != null && a != null)//empeche l'acces a des elements nuls
     	{
-    		res = g.perdreArme(ida);
+    		if (g.declarerArmes().contains(a))//empeche de desarmer un gladiateur d'une arme qu'il ne possede pas
+    		{
+    			res = g.perdreArme(ida);
+    		}else{
+    			System.out.println(g.getNom() + " ne possede pas de " + a.getNom());
+    		}
     	}
         return res;
     }
@@ -322,6 +364,7 @@ public class Facade {
                 vainqueurs.add(gEthnie.listerEthnies().get(i).getIde());
             }
         }  
+        Ethnie.c_setPeutAjouter(true);
         return vainqueurs;    
     } 
     

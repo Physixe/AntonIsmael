@@ -56,6 +56,10 @@ public abstract class Gladiateur {
     public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
 
     public static void c_setVieInitiale(Integer v) {
+    	if (v < 0)//empeche une vie negative
+    	{
+    		v = 0;
+    	}
         packglad.Gladiateur.c_vieInitiale = v;
     }
 

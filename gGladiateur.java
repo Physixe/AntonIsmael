@@ -24,7 +24,7 @@ public class gGladiateur {
         {
             if (tsLesGladiateurs.get(i).getIdg() == idg)
             {
-            	res = gGladiateur.tsLesGladiateurs.get(i);
+            	res = tsLesGladiateurs.get(i);
                 trouve = true;
             }
             i++;
