@@ -9,7 +9,7 @@ public abstract class Gladiateur {
     private static Integer c_vieInitiale = 200;
     private Integer idg;  
     private Ethnie ethnie;
-    private static ArrayList<Arme> appartient = new ArrayList<Arme>();
+    private ArrayList<Arme> appartient = new ArrayList<Arme>();
 
     public Gladiateur(Integer idg, String nom, Ethnie ethnie) {
         this.nom = nom;
@@ -74,7 +74,7 @@ public abstract class Gladiateur {
     
     public Integer addArme(Arme a) {
         Integer res=-1;
-        if(!this.declarerArmes().contains(a) &&gArme.getArmes().contains(a))
+        if(!this.declarerArmes().contains(a) && gArme.getArmes().contains(a))
         {
             appartient.add(a);
             res = a.getIda();

@@ -50,6 +50,10 @@ public class Mirmillon extends Gladiateur {
       for (Arme a : this.declarerArmes()){
           armes += a.getNom() + ", ";
       }
+      
+      if (this.declarerArmes().isEmpty()){
+    	  armes = "Aucune arme";
+      }
 
       rapport = "Rapport du " + this.getType() + " N° " + this.getIdg()
       + " : " + this.getNom()
