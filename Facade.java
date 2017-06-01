@@ -97,19 +97,29 @@ public class Facade {
     public static Collection<Integer> listerAgresseurs(Integer idg) {
         //  retourne la liste des idg des agresseurs du gladiateur idg (si idg est un mirmillon sinon rien)
     	ArrayList<Integer> res = new ArrayList<Integer>();
-        
-        if(gGladiateur.getGladiateur(idg).getType()=="Mirmillon") {
-            for (Gladiateur g : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
-                res.add(g.getIdg())       ;               
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	
+    	if (g != null)
+    	{
+    		if(g.getType()=="Mirmillon") {
+                for (Gladiateur glad : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
+                    res.add(glad.getIdg())       ;               
+                }
             }
-        }
-        
+    	}
+ 
         return res;
         
     }  
     public static String faireSaluerGladiateur(Integer idg) {
         //retourne la phrase de salut : "Ave Caesar...." du gladiateur idg
-        return gGladiateur.getGladiateur(idg).saluer();
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	String res = "L'idg ne correspond a aucun Gladiateur";
+    	if (g != null)
+    	{
+    		res = g.saluer();
+    	}
+        return res;
     }
     public static String faireRapport(Integer idg) {
         //retourne le rapport du gladiateur idg (cf ï¿½noncï¿½)
@@ -123,9 +133,12 @@ public class Facade {
     public static Collection<Integer> declarerArmes(Integer idg) {
         // retourne la liste des ida des armes du gladiateur idg
     	ArrayList<Integer> res = new ArrayList<Integer>();
-        for (Arme a : gArme.getArmes()) {
-            res.add(a.getIda());
-        }
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	if (g != null){
+    		for (Arme a : g.declarerArmes()) {
+                res.add(a.getIda());
+            }
+    	}
         return res;
     }
     
@@ -133,7 +146,7 @@ public class Facade {
         int res=-1;
         int i=0;
         boolean trouve = false;
-        while (i < gGladiateur.ListerGladiateurs().size() && !!trouve)
+        while (i < gGladiateur.ListerGladiateurs().size() && !trouve)
         {
             if (gGladiateur.ListerGladiateurs().get(i).getIdg() == idg) {
                 res=idg;
@@ -145,6 +158,7 @@ public class Facade {
             }
         }
         return res;
+        
     }
 
 // Les armes
@@ -152,18 +166,36 @@ public class Facade {
         return gArme.nouvelleArme(nom, puissOff, puissDef);
     }
     public static Integer autoriserArmeAuxMirmillons(Integer ida) {
-        return Mirmillon.c_autoriserArmeMirmillon(gArme.getArme(ida));
+    	Arme a = gArme.getArme(ida);
+    	Integer res = -1;
+    	if (a != null)
+    	{
+    		res = Mirmillon.c_autoriserArmeMirmillon(a);
+    	}
+        return res;
     }
     public static Integer autoriserArmeAuxRetiaires(Integer ida) {
-        return Retiaire.c_autoriserArmeRetiaire(gArme.getArme(ida));
+    	Arme a = gArme.getArme(ida);
+    	Integer res = -1;
+    	if (a != null)
+    	{
+    		res = Retiaire.c_autoriserArmeRetiaire(a);
+    	}
+        return res;
     }
     public static Integer donnerUneArme(Integer ida, Integer idg) {
         //donne l'arme ida au gladiateur idg
     	Integer res = -1;
     	Arme a = gArme.getArme(ida);
     	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	if (g != null){
-    		res =  g.addArme(a);
+    	if (g != null && a != null){
+    		if (g.getType() == "Mirmillon" && Mirmillon.c_getArmesDispoMir().contains(a))
+    		{
+    			res =  g.addArme(a);
+    		}
+    		else if (g.getType() == "Retiaire" && Retiaire.c_getArmesDispoRet().contains(a)){
+    			res =  g.addArme(a);
+    		}
     	}
         return res;
     }
@@ -186,28 +218,24 @@ public class Facade {
     
     public static String decrireArme(Integer ida) {
         //renvoie en String la description de l'arme (cf p4 de l'ï¿½noncï¿½) ida,nom,valOff,ValDef, dispoMir,dispoRet
-        String desc = "";
-        String dispoMir = "Non";
-        String dispoRet = "Non";
-        Arme a = gArme.getArme(ida);
-        if(Mirmillon.c_getArmesDispoMir().contains(a)){
-            dispoMir = "Oui";
-        }
-        if(Retiaire.c_getArmesDispoRet().contains(a)){
-            dispoRet = "Oui";
-        }
-        desc += "Arme : "      + a.getIda()    + " " 
-             +  a.getNom()    + " ; " 
-             +  "valOff : "   + a.getValOff() + " ; "
-             +  "ValDef : "   + a.getValDef() + " ; "
-             +  "dispoMir : " + dispoMir      + " ; "
-             +  "dispoRet : " + dispoRet;
-        return desc;
+    	Arme a = gArme.getArme(ida);
+    	String res = "L'ida ne correspond a aucune arme.";
+    	if (a != null)
+    	{
+    		res = a.decrire();
+    	}
+        return res;
     }
 	public static String nomDeLArme(Integer ida) {
 		//renvoie en String juste le nom de l'arme
-            return gArme.getArme(ida).getNom();
-        }
+		String res = "L'ida ne correspond à aucune arme.";
+		Arme a = gArme.getArme(ida);
+		if (a != null)
+		{
+			res = a.getNom();
+		}
+		return res;
+    }
 
 // Les ethnies 
     public static Collection<Integer> listerEthnies() {
@@ -229,24 +257,51 @@ public class Facade {
     }
     public static String decrireEthnie(Integer ide) {
         //Renvoie la description de l'ethnie : ide,nom,score)
-        return "Ethnie : "+ ide + "\n"
-                + "Nom : " + gEthnie.getEthnie(ide).getNom() + "\n"
-                + "Score : " + getScore(ide) + "\n";
+    	String res = "L'ide ne correspons à aucune Ethnie.";
+    	Ethnie e = gEthnie.getEthnie(ide);
+    	if (e != null)
+    	{
+    		res = "Ethnie : "+ ide + " ; "
+                    + "Nom : " + e.getNom() + " ; "
+                    + "Score : " + getScore(ide);
+    	}
+        return res;
         
     }
     public static Integer getScore(Integer ide) {
         //retourne le score de l'ethnie ide
-        return gEthnie.getEthnie(ide).calculerScore();
+    	Integer res = -1;
+    	Ethnie e = gEthnie.getEthnie(ide);
+    	if (e != null)
+    	{
+    		res = e.calculerScore();
+    	}
+        return res;
     }
  
 //combat 
     public static Integer frapper(Integer idgAgresseur, Integer idgVictime, Integer ida) {
         //le gladiateur idgAgresseur frappe le gladiateur idgVictime ï¿½ l'aide de l'arme ida
-        return gGladiateur.getGladiateur(idgAgresseur).frapper(gGladiateur.getGladiateur(idgVictime), gArme.getArme(ida));
+    	Integer res = -1;
+    	Gladiateur agresseur = gGladiateur.getGladiateur(idgAgresseur);
+    	Gladiateur victime = gGladiateur.getGladiateur(idgVictime);
+    	Arme a = gArme.getArme(ida);
+    	if (agresseur != null && victime != null && a != null)
+    	{
+    		res = agresseur.frapper(victime, a);
+    	}
+        return res;
     }
-    public static Integer desarmer(Integer idgVictime, Integer ida) {
+    public static Integer desarmer(Integer idg, Integer ida) {
         //dÃ©pouille le gladiateur idgVictime de son arme ida
-        return gGladiateur.getGladiateur(idgVictime).perdreArme(ida);
+    	Integer res = -1;
+    	Gladiateur g = gGladiateur.getGladiateur(idg);
+    	Arme a = gArme.getArme(ida);
+    	if (g != null && a != null)
+    	{
+    		res = g.perdreArme(ida);
+    	}
+        return res;
     }
     public static Collection<Integer> vainqueurs() {
         //renvoie le ou les ide de l'ethnie (des ethnies ex aequo) gagnante/s
