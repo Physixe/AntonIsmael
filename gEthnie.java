@@ -48,6 +48,7 @@ public class gEthnie {
         return res;
     }
 
+    //calcule et renvoie le score de l'ethnie
     public static Integer getScore(Integer ide) {
         int i=0;
         Boolean fin = false;

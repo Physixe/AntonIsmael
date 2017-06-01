@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Facade {
+	
     public static Integer lancerJeu() {
-        //initialise les paramÃ¨tres du jeu avec les valeurs par dÃ©faut
+        //initialise les parametres du jeu avec les valeurs par defaut
         parametrage(200,30,100,100);
         return 0;
     }
@@ -81,14 +82,19 @@ public class Facade {
     public static Integer creerRetiaire(String nom, Integer agilite, Integer ide) {
     	Integer res = -1;
     	Ethnie e = gEthnie.getEthnie(ide);
-    	if(e != null){
+    	if(e != null){//empeche l'acces a un element null
     		res = gGladiateur.nouveauRetiaire(nom, agilite, e);
     	}
         return res;
     }
     
     public static Integer creerMirmillon(String nom, Integer poids, Integer ide) {
-        return gGladiateur.nouveauMirmillion(nom, poids, gEthnie.getEthnie(ide));
+    	Integer res = -1;
+    	Ethnie e = gEthnie.getEthnie(ide);
+    	if(e != null){//empeche l'acces a un element null
+    		res = gGladiateur.nouveauMirmillion(nom, poids, e);
+    	}
+        return res;
     }
     public static Collection<Integer> listerTousGladiateurs() {
         //retourne la liste des idg de tous les gladiateurs
@@ -104,9 +110,10 @@ public class Facade {
     	ArrayList<Integer> res = new ArrayList<Integer>();
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	
-    	if (g != null)
+    	if (g != null)//empeche l'acces a un element null
     	{
-    		if(g.getType()=="Mirmillon") {
+    		if(g.getType()=="Mirmillon") //verifie que le gladiateur est un mirmillon car il est le seul a posseder une liste d'agresseurs
+    		{
                 for (Gladiateur glad : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
                     res.add(glad.getIdg())       ;               
                 }
@@ -120,18 +127,19 @@ public class Facade {
         //retourne la phrase de salut : "Ave Caesar...." du gladiateur idg
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	String res = "L'idg ne correspond a aucun Gladiateur";
-    	if (g != null)
+    	if (g != null)//empeche l'acces a un element null
     	{
     		res = g.saluer();
     	}
-    	Ethnie.c_setPeutAjouter(false);
+    	Ethnie.c_setPeutAjouter(false);//une ethnie ne pourra plus etre creer jusqu'a la fin du combat
         return res;
     }
     public static String faireRapport(Integer idg) {
-        //retourne le rapport du gladiateur idg (cf ï¿½noncï¿½)
+        //retourne le rapport du gladiateur idg (cf enonce)
     	String res = "L'idg ne correspond à aucun Gladiateur";
     	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	if (g != null){
+    	if (g != null)//empeche l'acces a un element null
+    	{
     		res = g.rapporter();
     	}
         return res;
@@ -140,7 +148,8 @@ public class Facade {
         // retourne la liste des ida des armes du gladiateur idg
     	ArrayList<Integer> res = new ArrayList<Integer>();
     	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	if (g != null){
+    	if (g != null)//empeche l'acces a un element null
+    	{
     		for (Arme a : g.declarerArmes()) {
                 res.add(a.getIda());
             }
@@ -174,7 +183,7 @@ public class Facade {
     public static Integer autoriserArmeAuxMirmillons(Integer ida) {
     	Arme a = gArme.getArme(ida);
     	Integer res = -1;
-    	if (a != null)
+    	if (a != null)//empeche l'acces a un element null
     	{
     		res = Mirmillon.c_autoriserArmeMirmillon(a);
     	}
@@ -183,7 +192,7 @@ public class Facade {
     public static Integer autoriserArmeAuxRetiaires(Integer ida) {
     	Arme a = gArme.getArme(ida);
     	Integer res = -1;
-    	if (a != null)
+    	if (a != null)//empeche l'acces a un element null
     	{
     		res = Retiaire.c_autoriserArmeRetiaire(a);
     	}
@@ -243,10 +252,10 @@ public class Facade {
     }
     
     public static String decrireArme(Integer ida) {
-        //renvoie en String la description de l'arme (cf p4 de l'ï¿½noncï¿½) ida,nom,valOff,ValDef, dispoMir,dispoRet
+        //renvoie en String la description de l'arme (cf p4 de l'enonce) ida,nom,valOff,ValDef, dispoMir,dispoRet
     	Arme a = gArme.getArme(ida);
     	String res = "L'ida ne correspond a aucune arme.";
-    	if (a != null)
+    	if (a != null)//empeche l'acces a un element null
     	{
     		res = a.decrire();
     	}
@@ -256,7 +265,7 @@ public class Facade {
 		//renvoie en String juste le nom de l'arme
 		String res = "L'ida ne correspond à aucune arme.";
 		Arme a = gArme.getArme(ida);
-		if (a != null)
+		if (a != null)//empeche l'acces a un element null
 		{
 			res = a.getNom();
 		}
@@ -285,7 +294,7 @@ public class Facade {
         //Renvoie la description de l'ethnie : ide,nom,score)
     	String res = "L'ide ne correspons à aucune Ethnie.";
     	Ethnie e = gEthnie.getEthnie(ide);
-    	if (e != null)
+    	if (e != null)//empeche l'acces a un element null
     	{
     		res = "Ethnie : "+ ide + " ; "
                     + "Nom : " + e.getNom() + " ; "
@@ -298,7 +307,7 @@ public class Facade {
         //retourne le score de l'ethnie ide
     	Integer res = -1;
     	Ethnie e = gEthnie.getEthnie(ide);
-    	if (e != null)
+    	if (e != null)//empeche l'acces a un element null
     	{
     		res = e.calculerScore();
     	}

@@ -7,12 +7,14 @@ public class gGladiateur {
     protected static Integer nextIdg = 1;
     private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
+    //renvoie tous les gladiateurs du jeu
     public static ArrayList<Gladiateur> ListerGladiateurs() {
         return tsLesGladiateurs;
     }
 
-    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ethnie) {
-        return gEthnie.getEthnie(ethnie).listerGladiateurs();
+    //renvoie les gladiateurs appartenant a l'ethnie ide
+    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ide) {
+        return gEthnie.getEthnie(ide).listerGladiateurs();
     }
 
     public static Gladiateur getGladiateur(Integer idg) 
@@ -33,9 +35,8 @@ public class gGladiateur {
     }
     
     public static Integer nouveauMirmillion(String nom, Integer poids, Ethnie ethnie) {
-        Integer res = -1;
-        
-        if(gEthnie.listerEthnies().contains(ethnie))
+        Integer res = -1;      
+        if(gEthnie.listerEthnies().contains(ethnie))//empeche de creer un mirmillon avec une fausse ethnie
         {
             Mirmillon m = new Mirmillon(nextIdg, nom,ethnie,poids );
             res = m.getIdg();
@@ -47,7 +48,7 @@ public class gGladiateur {
 
     public static Integer nouveauRetiaire(String nom, Integer agilite, Ethnie ethnie) {
         int res = -1;
-        if(gEthnie.listerEthnies().contains(ethnie)) 
+        if(gEthnie.listerEthnies().contains(ethnie))//empeche de creer un retiaire avec une fausse ethnie
         {
         	Retiaire r = new Retiaire(nextIdg, nom,agilite, ethnie);
             res = r.getIdg();

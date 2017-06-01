@@ -4,17 +4,19 @@ import java.util.ArrayList;
 
 
 public class Ethnie {
+	
     private Integer ide;
     private String nom;
-    private ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();
+    private ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();//liste des gladiateurs appartenant a l'ethnie courante
     private static boolean c_peutAjouter = true;
 
-
+    //constructeur
     public  Ethnie(Integer ide, String nom) {
         this.ide=ide;
         this.nom=nom;
     }
-
+    
+    //renvoie le score le l'ethnie
     public Integer calculerScore() {
     	Integer res = 0;
     	
@@ -46,7 +48,8 @@ public class Ethnie {
     public Integer ajouterGlad(Gladiateur g)
     {
     	Integer res = -1;
-    	if (g != null){
+    	if (g != null)//empeche l'acces a un element null
+    	{
     		this.gladEthnie.add(g);
     		res = g.getIdg();
     	}

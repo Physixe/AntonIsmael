@@ -7,14 +7,14 @@ public class Arme {
     private Integer puissanceDef;
     private Integer ida;
     
-
+    //Constructeur
     public Arme(String nom, Integer puissanceOff, Integer puissanceDef, Integer ida) {
         this.nom=nom;
-        if (puissanceOff < 0)
+        if (puissanceOff < 0)//empeche d'avoir une puissanceOff negative
         {
         	puissanceOff = 0;
         }
-        if (puissanceDef < 0)
+        if (puissanceDef < 0)//empeche d'avoir une puissanceDef negative
         {
         	puissanceDef = 0;
         }
@@ -39,6 +39,7 @@ public class Arme {
         return this.ida;
     }
     
+    //renvoie une description de l'arme (Ida, nom, valOff, valDeff, dispoMir, disporet
     public String decrire(){
     	String desc = "";
     	String dispoMir = "Non";

@@ -11,6 +11,7 @@ public abstract class Gladiateur {
     private Ethnie ethnie;
     private ArrayList<Arme> appartient = new ArrayList<Arme>();
 
+    //constructeur
     public Gladiateur(Integer idg, String nom, Ethnie ethnie) {
         this.nom = nom;
         this.idg = idg;
@@ -45,7 +46,8 @@ public abstract class Gladiateur {
 
     public Integer frapper(Gladiateur victime, Arme a) {
         Integer res = -1;
-        if (victime != null && a != null){
+        if (victime != null && a != null)//empeche l'acces a des elements null
+        {
             victime.recoitCoups(this,a);
             res = victime.getIdg();
         }
@@ -56,7 +58,7 @@ public abstract class Gladiateur {
     public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
 
     public static void c_setVieInitiale(Integer v) {
-    	if (v < 0)//empeche une vie negative
+    	if (v < 0)//empeche de set une vie negative
     	{
     		v = 0;
     	}
@@ -66,20 +68,26 @@ public abstract class Gladiateur {
     public Integer perdreArme(Integer ida) {
         Integer i = 0;            
         boolean continu = true;
-        
-        while(i < appartient.size() && continu){
-            if (appartient.toArray()[i] == ida){
+        Integer res = -1;
+        Arme a = gArme.getArme(ida);
+        if (a != null)//empeche l'acces a un elements null
+        {
+        	while(i < appartient.size() && continu){
+            if (appartient.get(i).getIda() == ida){
                 appartient.remove(appartient.toArray()[i]);
                 continu = false;
+                res = ida;
             }
             i++;
         }
-        return ida;
+        }
+        
+        return res;
     }
     
     public Integer addArme(Arme a) {
         Integer res=-1;
-        if(!this.declarerArmes().contains(a) && gArme.getArmes().contains(a))
+        if (a != null && !this.declarerArmes().contains(a))//empeche l'acces a un elements null, et d'avoir 2 fois la meme arme
         {
             appartient.add(a);
             res = a.getIda();

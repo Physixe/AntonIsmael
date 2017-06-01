@@ -10,6 +10,7 @@ public class Mirmillon extends Gladiateur {
     private static ArrayList<Arme> c_armesAccessMirmillon=new ArrayList<Arme>();
     ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
+    //constructeur
     public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
         super(idg, nom, ethnie);
         if (poids > Mirmillon.c_poidsMax)//empeche d'avoir un poids superieur au poids max
@@ -25,9 +26,8 @@ public class Mirmillon extends Gladiateur {
         Mirmillon.c_poidsMax = c_poidsMax;
     }
 
-
     public void recoitCoups(Gladiateur glad, Arme arme) {
-        agresseur.add(glad);//se souvient du gladiateur qui l'a frapp�
+        agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
 
         Integer val_deff = 0;
         for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
@@ -44,6 +44,7 @@ public class Mirmillon extends Gladiateur {
         }
     }
 
+    //renvoie le rapport du mirmillon (Type, idg, nom, etat, vie, force, poids, liste d'armes, liste d'agresseurs
     public String rapporter() {
       String rapport;
       String armes = "";
@@ -103,10 +104,11 @@ public class Mirmillon extends Gladiateur {
 
     public static Integer c_autoriserArmeMirmillon(Arme arme) {
         int res=-1;
-        if (gArme.getArmes().contains(arme) && !c_armesAccessMirmillon.contains(arme)){
-              c_armesAccessMirmillon.add(arme);
-              res = arme.getIda();
-            }
+        if (arme != null && !c_armesAccessMirmillon.contains(arme))//empeche l'acces a un element null et d'avoir 2 fois la meme arme 
+        {
+        	c_armesAccessMirmillon.add(arme);
+        	res = arme.getIda();
+        }
         
         return res;
     }

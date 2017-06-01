@@ -10,6 +10,7 @@ public class Retiaire extends Gladiateur {
     private static Integer c_agiliteMax = 50;
     private static ArrayList<Arme> c_armesAccessRetiaire = new ArrayList<Arme>();
 
+    //constructeur
     public Retiaire(Integer idg, String nom, Integer agilite, Ethnie ethnie) {
         super(idg, nom,ethnie);
         if (agilite > Retiaire.c_agiliteMax){//empeche de depasser l'agilite max
@@ -36,6 +37,7 @@ public class Retiaire extends Gladiateur {
         return c_agiliteMax;
     }
 
+    //renvoie le rapport du retiaire (Type, idg, nom, etat, vie, force, agilite, liste d'armes
     public String rapporter() {
           String rapport;
           String armes = "";
@@ -107,7 +109,7 @@ public class Retiaire extends Gladiateur {
 
     public static Integer c_autoriserArmeRetiaire(Arme arme) {
         int res=-1;
-        if (gArme.getArmes().contains(arme) && !c_armesAccessRetiaire.contains(arme))
+        if (arme != null && !c_armesAccessRetiaire.contains(arme))//empeche d'avoir plusieurs fois la meme arme
         {
             c_armesAccessRetiaire.add(arme);
             res = arme.getIda();

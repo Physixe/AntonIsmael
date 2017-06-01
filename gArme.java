@@ -7,7 +7,6 @@ public class gArme {
     protected static Integer nextIda = 1;
     private static ArrayList<Arme> ttesLesArmes=new ArrayList<Arme>();
     
-
     public static Integer nouvelleArme(String nom, Integer puissanceOff, Integer puissanceDef) {
             ttesLesArmes.add(new Arme(nom,puissanceOff, puissanceDef, nextIda));
             Integer res = nextIda;
