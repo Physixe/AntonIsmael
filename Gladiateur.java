@@ -16,6 +16,7 @@ public abstract class Gladiateur {
         this.idg = idg;
         this.vie = c_vieInitiale;
         this.ethnie= ethnie;
+        ethnie.ajouterGlad(this);
     }
 
     public String getNom() {

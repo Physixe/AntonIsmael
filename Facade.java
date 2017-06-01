@@ -321,7 +321,7 @@ public class Facade {
             {
                 vainqueurs.add(gEthnie.listerEthnies().get(i).getIde());
             }
-        }
+        }  
         return vainqueurs;    
     } 
     

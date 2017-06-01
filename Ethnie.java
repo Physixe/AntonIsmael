@@ -6,19 +6,28 @@ import java.util.ArrayList;
 public class Ethnie {
     private Integer ide;
     private String nom;
-    private Integer score;
-
-    private static ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();
+    private ArrayList<Gladiateur> gladEthnie = new ArrayList<Gladiateur>();
 
 
     public  Ethnie(Integer ide, String nom) {
         this.ide=ide;
         this.nom=nom;
-        this.score=0;
     }
 
     public Integer calculerScore() {
-        return this.score;
+    	Integer res = 0;
+    	
+    	for (Gladiateur g : gladEthnie)
+    	{
+    		if (g.getVie() > 50){
+    			res += 10;
+    		}
+    		else if (g.getVie() >= 10){
+    			res += 5;
+    		}
+    	}
+    	
+    	return res;
     }
 
     public Integer getIde() {
@@ -30,6 +39,17 @@ public class Ethnie {
     }
 
     public ArrayList<Gladiateur> listerGladiateurs() {
-        return Ethnie.gladEthnie;
+        return this.gladEthnie;
     }
+    
+    public Integer ajouterGlad(Gladiateur g)
+    {
+    	Integer res = -1;
+    	if (g != null){
+    		this.gladEthnie.add(g);
+    		res = g.getIdg();
+    	}
+    	return res;
+    }
+    
 }
