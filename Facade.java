@@ -47,26 +47,26 @@ public class Facade {
         
         System.out.println("============ Attribution des 15 armes  ============");
         
-        donnerUneArme(glad1, arme2);
-        donnerUneArme(glad1, arme6);
-        donnerUneArme(glad1, arme3);
+        donnerUneArme(arme2, glad1);
+        donnerUneArme(arme6, glad1);
+        donnerUneArme(arme3, glad1);
         
-        donnerUneArme(glad2, arme1);
-        donnerUneArme(glad2, arme4);
-        donnerUneArme(glad2, arme5);
-        donnerUneArme(glad2, arme6);
+        donnerUneArme(arme1, glad2);
+        donnerUneArme(arme2, glad2);
+        donnerUneArme(arme5, glad2);
+        donnerUneArme(arme6, glad2);
         
-        donnerUneArme(glad3, arme2);
-        donnerUneArme(glad3, arme6);
+        donnerUneArme(arme2, glad3);
+        donnerUneArme(arme6, glad3);
         
-        donnerUneArme(glad4, arme1);
-        donnerUneArme(glad4, arme4);
+        donnerUneArme(arme1, glad4);
+        donnerUneArme(arme4, glad4);
         
-        donnerUneArme(glad5, arme1);
-        donnerUneArme(glad5, arme6);
+        donnerUneArme(arme1, glad5);
+        donnerUneArme(arme6, glad5);
         
-        donnerUneArme(glad6, arme4);
-        donnerUneArme(glad6, arme5);
+        donnerUneArme(arme4, glad6);
+        donnerUneArme(arme5, glad6);
         
     }
     public static void parametrage(Integer vieInit, Integer forceRet, Integer poidsMax, Integer agilMax) {

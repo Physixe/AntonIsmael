@@ -35,9 +35,15 @@ public class Retiaire extends Gladiateur {
           String rapport;
           String armes = "";
 
-          for (Arme a : this.declarerArmes()){
-              armes += a.getNom() + ", ";
+          if (this.declarerArmes().isEmpty()){
+        	  armes = "Aucune arme";
+          }else
+          {
+              for (Arme a : this.declarerArmes()){
+                  armes += a.getNom() + ", ";
+              } 
           }
+
 
           rapport = "Rapport du " + this.getType() + " N� " + this.getIdg()
           + " : " + this.getNom()
@@ -70,12 +76,11 @@ public class Retiaire extends Gladiateur {
             val_deff += a.getValDef();
         }
         
-        Integer degats = glad.getForce() + arme.getValOff() - val_deff;//calcule la somme des degats et enleve la defense
+        Integer degats = glad.getForce() + arme.getValOff() - val_deff - agilite;//calcule la somme des degats et enleve la defense
 
         if (degats > 0){//empeche des dégats négatifs
             this.setVie(this.getVie() - degats);
         }
-
     }
 
 

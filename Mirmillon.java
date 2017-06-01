@@ -32,27 +32,35 @@ public class Mirmillon extends Gladiateur {
             val_deff += a.getValDef();
         }
         
-        //System.out.println(glad);
-        //System.out.println(arme);
-        
         Integer degats = glad.getForce() + arme.getValOff() - val_deff;//calcule la somme des degats et enleve la defense
 
         if (degats > 0){//empeche des dégats négatifs
             this.setVie(this.getVie() - degats);
         }
-
     }
 
     public String rapporter() {
       String rapport;
       String armes = "";
-
-      for (Arme a : this.declarerArmes()){
-          armes += a.getNom() + ", ";
-      }
+      String aggr = "";
       
       if (this.declarerArmes().isEmpty()){
     	  armes = "Aucune arme";
+      }else
+      {
+          for (Arme a : this.declarerArmes()){
+              armes += a.getNom() + ", ";
+          } 
+      }
+      
+      if (this.listerAgresseurs().isEmpty()){
+    	  aggr = "Aucun agresseurs";
+      }
+      else
+      {
+    	  for (Gladiateur g : this.listerAgresseurs()){
+    		  aggr += g.getNom() + ", ";
+    	  }
       }
 
       rapport = "Rapport du " + this.getType() + " N� " + this.getIdg()
@@ -62,7 +70,8 @@ public class Mirmillon extends Gladiateur {
       + " ; Vie : " + this.getVie()
       + " ; Force : " + this.getForce()
       + " ; Poids : " + this.poids
-      + " ; Armes : " + armes;
+      + " ; Armes : " + armes
+      + " ; Agresseurs : " + aggr;
 
       return rapport;
     }

@@ -92,14 +92,14 @@ public abstract class Gladiateur {
     
     public String getEtat() {
         String res = "";
-        if (this.vie == 0)
-            res = "mort";
+        if (this.vie <= 0)
+            res = "Mort";
         else if (this.vie<10)
-            res = "moribond";
+            res = "Moribond";
         else if (this.vie >= 10 && this.vie <= 50)
-            res = "blessé";
+            res = "Blesse";
         else
-            res = "vivant";
+            res = "Bien portant";
         return res;
     }
     
