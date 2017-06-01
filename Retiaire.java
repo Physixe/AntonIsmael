@@ -39,14 +39,14 @@ public class Retiaire extends Gladiateur {
               armes += a.getNom() + ", ";
           }
 
-          rapport = "Identifiant : " + this.getIdg()
-          + "\nNom : " + this.getNom()
-          + "\nEthnie : " + this.getEthnie().getNom()
-          + "\nEtat : " + this.getEtat()
-          + "\nVie : " + this.getVie()
-          + "\nForce : " + this.getForce()
-          + "\nAgilitÃ© : " + this.getAgilite()
-          + "\nArmes : " + armes;
+          rapport = "Rapport du " + this.getType() + " N° " + this.getIdg()
+          + " : " + this.getNom()
+          + " ; Ethnie : " + this.getEthnie().getNom()
+          + " ; Etat : " + this.getEtat()
+          + " ; Vie : " + this.getVie()
+          + " ; Force : " + this.getForce()
+          + " ; Agilite : " + this.agilite
+          + " ; Armes : " + armes;
 
           return rapport;
         }
@@ -108,7 +108,7 @@ public class Retiaire extends Gladiateur {
     }
     
     public String saluer(){
-        return "Ave Caesar, RÃ©tiaire NÂ°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens ï¿½ l'ethnie des " + this.getEthnie().getNom();
+        return "Ave Caesar, Retiaire N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens a l'ethnie des " + this.getEthnie().getNom();
     }
     
     public String getType(){

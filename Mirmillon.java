@@ -51,14 +51,14 @@ public class Mirmillon extends Gladiateur {
           armes += a.getNom() + ", ";
       }
 
-      rapport = "Identifiant : " + this.getIdg()
-      + "\nNom : " + this.getNom()
-      + "\nEthnie : " + this.getEthnie().getNom()
-      + "\nEtat : " + this.getEtat()
-      + "\nVie : " + this.getVie()
-      + "\nForce : " + this.getForce()
-      + "\nPoids : " + this.poids
-      + "\nArmes : " + armes;
+      rapport = "Rapport du " + this.getType() + " N° " + this.getIdg()
+      + " : " + this.getNom()
+      + " ; Ethnie : " + this.getEthnie().getNom()
+      + " ; Etat : " + this.getEtat()
+      + " ; Vie : " + this.getVie()
+      + " ; Force : " + this.getForce()
+      + " ; Poids : " + this.poids
+      + " ; Armes : " + armes;
 
       return rapport;
     }
@@ -90,7 +90,7 @@ public class Mirmillon extends Gladiateur {
     }
     
     public String saluer(){
-        return "Ave Caesar, Mirmillon Nï¿½"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens ï¿½ l'ethnie des " + this.getEthnie().getNom();
+        return "Ave Caesar, Mirmillon N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens a l'ethnie des " + this.getEthnie().getNom();
     }
     
     public String getType(){

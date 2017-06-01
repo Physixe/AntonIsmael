@@ -116,7 +116,7 @@ public class Facade {
     	String res = "L'idg ne correspond à aucun Gladiateur";
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	if (g != null){
-    		res = gGladiateur.getGladiateur(idg).rapporter();
+    		res = g.rapporter();
     	}
         return res;
     }
@@ -196,12 +196,12 @@ public class Facade {
         if(Retiaire.c_getArmesDispoRet().contains(a)){
             dispoRet = "Oui";
         }
-        desc += "ida : "      + a.getIda()    + "\n" 
-             +  "nom : "      + a.getNom()    + "\n" 
-             +  "valOff : "   + a.getValOff() + "\n"
-             +  "ValDef : "   + a.getValDef() + "\n"
-             +  "dispoMir : " + dispoMir      + "\n"
-             +  "dispoRet : " + dispoRet      + "\n";
+        desc += "Arme : "      + a.getIda()    + " " 
+             +  a.getNom()    + " ; " 
+             +  "valOff : "   + a.getValOff() + " ; "
+             +  "ValDef : "   + a.getValDef() + " ; "
+             +  "dispoMir : " + dispoMir      + " ; "
+             +  "dispoRet : " + dispoRet;
         return desc;
     }
 	public static String nomDeLArme(Integer ida) {
