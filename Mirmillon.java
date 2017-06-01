@@ -10,8 +10,8 @@ public class Mirmillon extends Gladiateur {
     private static ArrayList<Arme> c_armesAccessMirmillon=new ArrayList<Arme>();
     ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
-    public Mirmillon(String nom, Ethnie ethnie, Integer poids) {
-        super(nom, ethnie);
+    public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
+        super(idg, nom, ethnie);
         if (poids > Mirmillon.c_poidsMax)
          {
          poids = Mirmillon.c_poidsMax;
@@ -25,7 +25,7 @@ public class Mirmillon extends Gladiateur {
 
 
     public void recoitCoups(Gladiateur glad, Arme arme) {
-        agresseur.add(glad);//se souvient du gladiateur qui l'a frappé
+        agresseur.add(glad);//se souvient du gladiateur qui l'a frappï¿½
 
         Integer val_deff = 0;
         for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
@@ -90,7 +90,7 @@ public class Mirmillon extends Gladiateur {
     }
     
     public String saluer(){
-        return "Ave Caesar, Mirmillon N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens à  l'ethnie des " + this.getEthnie().getNom();
+        return "Ave Caesar, Mirmillon Nï¿½"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens ï¿½ l'ethnie des " + this.getEthnie().getNom();
     }
     
     public String getType(){

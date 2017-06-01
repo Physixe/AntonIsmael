@@ -11,9 +11,9 @@ public abstract class Gladiateur {
     private Ethnie ethnie;
     private static ArrayList<Arme> appartient = new ArrayList<Arme>();
 
-    public Gladiateur(String nom, Ethnie ethnie) {
+    public Gladiateur(Integer idg, String nom, Ethnie ethnie) {
         this.nom = nom;
-        this.idg = gGladiateur.nextIdg;
+        this.idg = idg;
         this.vie = c_vieInitiale;
         this.ethnie= ethnie;
     }
@@ -43,8 +43,13 @@ public abstract class Gladiateur {
     
 
     public Integer frapper(Gladiateur victime, Arme a) {
-        victime.recoitCoups(this,a);
-        return victime.getIdg();
+        Integer res = -1;
+        if (victime != null && a != null){
+            victime.recoitCoups(this,a);
+            res = victime.getIdg();
+        }
+        
+        return res;
     }
 
     public abstract void recoitCoups(Gladiateur aggresseur, Arme a);
@@ -86,7 +91,9 @@ public abstract class Gladiateur {
     
     public String getEtat() {
         String res = "";
-        if (this.vie<10)
+        if (this.vie == 0)
+            res = "mort";
+        else if (this.vie<10)
             res = "moribond";
         else if (this.vie >= 10 && this.vie <= 50)
             res = "blessé";
@@ -97,5 +104,9 @@ public abstract class Gladiateur {
     
     public void setVie(Integer v) {
         this.vie=v;
+    }
+    
+    public static Integer c_getVieInitiale(){
+        return c_vieInitiale;
     }
 }

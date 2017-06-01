@@ -37,7 +37,7 @@ public class gGladiateur {
         
         if(gEthnie.listerEthnies().contains(ethnie))
         {
-        	Mirmillon m = new Mirmillon(nom,ethnie,poids);
+            Mirmillon m = new Mirmillon(nextIdg, nom,ethnie,poids );
             res = m.getIdg();
             nextIdg++;
             tsLesGladiateurs.add(m);
@@ -49,7 +49,7 @@ public class gGladiateur {
         int res = -1;
         if(gEthnie.listerEthnies().contains(ethnie)) 
         {
-        	Retiaire r = new Retiaire(nom,agilite, ethnie);
+        	Retiaire r = new Retiaire(nextIdg, nom,agilite, ethnie);
             res = r.getIdg();
             nextIdg++;
             tsLesGladiateurs.add(r);

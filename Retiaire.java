@@ -10,8 +10,8 @@ public class Retiaire extends Gladiateur {
     private static Integer c_agiliteMax = 50;
     private static ArrayList<Arme> c_armesAccessRetiaire = new ArrayList<Arme>();
 
-    public Retiaire(String nom, Integer agilite, Ethnie ethnie) {
-        super(nom,ethnie);
+    public Retiaire(Integer idg, String nom, Integer agilite, Ethnie ethnie) {
+        super(idg, nom,ethnie);
         if (agilite > Retiaire.c_agiliteMax){
         	agilite = Retiaire.c_agiliteMax;
         }
@@ -25,6 +25,10 @@ public class Retiaire extends Gladiateur {
     public static void c_setAgiliteMax(Integer a) {
         if (a>0)
             c_agiliteMax=a;
+    }
+    
+    public static Integer c_getAgiliteMax(){
+        return c_agiliteMax;
     }
 
     public String rapporter() {
@@ -41,13 +45,17 @@ public class Retiaire extends Gladiateur {
           + "\nEtat : " + this.getEtat()
           + "\nVie : " + this.getVie()
           + "\nForce : " + this.getForce()
-          + "\nAgilité : " + this.getAgilite()
+          + "\nAgilitÃ© : " + this.getAgilite()
           + "\nArmes : " + armes;
 
           return rapport;
         }
 
     public static ArrayList<Arme> c_getArmesDispoRet() {
+        return c_armesAccessRetiaire;
+    }
+    
+    public ArrayList<Arme> getArmesDispoRet() {
         return c_armesAccessRetiaire;
     }
 
@@ -70,6 +78,11 @@ public class Retiaire extends Gladiateur {
 
     }
 
+
+    public static Integer c_getForce() {
+        return c_force;
+    }
+    
     public Integer getForce() {
         return c_force;
     }
@@ -85,11 +98,28 @@ public class Retiaire extends Gladiateur {
         return res;
     }
     
+    public boolean armeEstAutorisee(Arme arme){
+        boolean res= false;
+        if (c_armesAccessRetiaire.contains(arme))
+        {
+           res = true;
+        }
+        return res;
+    }
+    
     public String saluer(){
-        return "Ave Caesar, Rétiaire N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens à  l'ethnie des " + this.getEthnie().getNom();
+        return "Ave Caesar, RÃ©tiaire NÂ°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens ï¿½ l'ethnie des " + this.getEthnie().getNom();
     }
     
     public String getType(){
         return c_type;
+    }
+    
+    public static String c_getType(){
+        return c_type;
+    }
+    
+    public static void c_setType(String s){
+        c_type = s;
     }
 }
