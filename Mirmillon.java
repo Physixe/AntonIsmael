@@ -11,8 +11,12 @@ public class Mirmillon extends Gladiateur {
     ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
     //constructeur
-    public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
+    public Mirmillon(Integer idg, String nom, Integer poids, Ethnie ethnie) {
         super(idg, nom, ethnie);
+        
+        if (idg < 1 || nom=="" || nom==null || poids <0 || poids > c_poidsMax)
+            throw new IllegalArgumentException();
+        
         if (poids > Mirmillon.c_poidsMax)//empeche d'avoir un poids superieur au poids max
          {
          poids = Mirmillon.c_poidsMax;
@@ -27,6 +31,9 @@ public class Mirmillon extends Gladiateur {
     }
 
     public void recoitCoups(Gladiateur glad, Arme arme) {
+        if (glad==null || arme ==null)
+            throw new IllegalArgumentException();
+        
         agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
 
         Integer val_deff = 0;
@@ -69,7 +76,7 @@ public class Mirmillon extends Gladiateur {
     	  }
       }
 
-      rapport = "Rapport du " + this.getType() + " N° " + this.getIdg()
+      rapport = "Rapport du " + this.getType() + " NÂ° " + this.getIdg()
       + " : " + this.getNom()
       + " ; Ethnie : " + this.getEthnie().getNom()
       + " ; Etat : " + this.getEtat()
@@ -104,6 +111,9 @@ public class Mirmillon extends Gladiateur {
 
     public static Integer c_autoriserArmeMirmillon(Arme arme) {
         int res=-1;
+        if (arme==null)
+            throw new IllegalArgumentException("L'arme est nulle !");
+                                          
         if (arme != null && !c_armesAccessMirmillon.contains(arme))//empeche l'acces a un element null et d'avoir 2 fois la meme arme 
         {
         	c_armesAccessMirmillon.add(arme);
@@ -114,10 +124,41 @@ public class Mirmillon extends Gladiateur {
     }
     
     public String saluer(){
-        return "Ave Caesar, Mirmillon N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens a l'ethnie des " + this.getEthnie().getNom();
+        return "Ave Caesar, Mirmillon NÂ°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens a l'ethnie des " + this.getEthnie().getNom();
     }
     
     public String getType(){
         return c_type;
+    }
+    
+    public Integer getPoids() 
+    {
+        return this.poids;
+    }
+    
+    public static String c_getType(){
+        return c_type;
+    }
+    
+    public static void c_setType(String s){
+        c_type = s;
+    }
+    
+    public static Integer c_getPoidsMax() {
+        return c_poidsMax;
+    }
+    
+    public boolean armeEstAutorisee(Arme arme){
+        
+
+        boolean res= false;
+        if (arme==null)
+            throw new IllegalArgumentException("L'arme est nulle");
+        else if (c_armesAccessMirmillon.contains(arme))
+        {
+           res = true;
+        }
+            
+        return res;
     }
 }
