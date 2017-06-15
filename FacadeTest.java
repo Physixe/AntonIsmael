@@ -334,7 +334,7 @@ public class FacadeTest {
         int vie = (vieInit + ((Retiaire)g).getAgilite()) - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff());
 
 
-        //assertThat("La vie du Retiaire " + idg2 + " ne prends pas en compte la valeur defensive de ses armes et/ou son agilite", Facade.vieGladiateur(idg2), not(greaterThan(vie)));
+        assertThat("La vie du Retiaire " + idg2 + " ne prends pas en compte la valeur defensive de ses armes et/ou son agilite", Facade.vieGladiateur(idg2) <= vie, is(true));
 
     }
     
