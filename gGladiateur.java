@@ -8,12 +8,12 @@ public class gGladiateur {
     private static ArrayList<Gladiateur> tsLesGladiateurs= new ArrayList<Gladiateur>();
     
     //renvoie tous les gladiateurs du jeu
-    public static ArrayList<Gladiateur> ListerGladiateurs() {
+    public static ArrayList<Gladiateur> listerGladiateurs() {
         return tsLesGladiateurs;
     }
 
     //renvoie les gladiateurs appartenant a l'ethnie ide
-    public static ArrayList<Gladiateur> ListerGladiateurs(Integer ide) {
+    public static ArrayList<Gladiateur> listerGladiateurs(Integer ide) {
         return gEthnie.getEthnie(ide).listerGladiateurs();
     }
 
@@ -62,11 +62,11 @@ public class gGladiateur {
         int res=-1;
         int i=0;
         boolean trouve = false;
-        while (i < gGladiateur.ListerGladiateurs().size() && !trouve)
+        while (i < gGladiateur.listerGladiateurs().size() && !trouve)
         {
-            if (gGladiateur.ListerGladiateurs().get(i).getIdg() == idg) {
+            if (gGladiateur.listerGladiateurs().get(i).getIdg() == idg) {
                 res=idg;
-                gGladiateur.ListerGladiateurs().remove(i);
+                gGladiateur.listerGladiateurs().remove(i);
                 trouve=true;
                 nextIdg--;
                 }

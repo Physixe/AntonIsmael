@@ -1,4 +1,4 @@
-package packmain;
+package packglad;
 
 import java.io.Console;
 import java.util.Scanner;
@@ -120,7 +120,7 @@ public class Menu
                   System.out.println(Facade.faireRapport(idG));
                   break;
 
-              case 12 : // Donner une arme a  un gladiateur 
+              case 12 : // Donner une arme aï¿½ un gladiateur 
                   System.out.println("Id arme ? ");
                   idA = sc.nextInt();
                   System.out.println("Id gladiateur ? ");

@@ -19,7 +19,7 @@ public class gEthnie {
     
     public static Collection<Gladiateur> listerGladiateursDEthnie(Integer ide) {
         ArrayList<Gladiateur> res = new ArrayList<Gladiateur>();
-        for (Gladiateur g : gGladiateur.ListerGladiateurs()){
+        for (Gladiateur g : gGladiateur.listerGladiateurs()){
         	if(g.getEthnie() == getEthnie(ide)){
         		res.add(g);
         	}
@@ -63,5 +63,9 @@ public class gEthnie {
         }
         
         return ttesLesEthnies.get(i).calculerScore();
+    }
+    
+    public static void viderListe() {
+        ttesLesEthnies.clear();
     }
 }

@@ -1,4 +1,4 @@
-package packmain;
+package packglad;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,12 +40,12 @@ public class Test0 {
             System.out.println("        " + Facade.decrireArme(i));
         }
         System.out.println();
-        System.out.println("----->12. Donner l'arme :7 (lance) au gladiateur N°7 Retor");
+        System.out.println("----->12. Donner l'arme :7 (lance) au gladiateur Nï¿½7 Retor");
         valret = Facade.donnerUneArme(7, 7);
-        System.out.println("----->12. Donner une arme interdite 4:Bouclier au gladiateur N°7 Retor");
+        System.out.println("----->12. Donner une arme interdite 4:Bouclier au gladiateur Nï¿½7 Retor");
         valret = Facade.donnerUneArme(4, 7);
         System.out.println();
-        System.out.println("----->8. Debut du combat : Les gladiateurs saluent et déclarent leurs armes ================");
+        System.out.println("----->8. Debut du combat : Les gladiateurs saluent et dï¿½clarent leurs armes ================");
 
         for (Integer idg : Facade.listerTousGladiateurs()) {
             System.out.print("        " + Facade.faireSaluerGladiateur(idg));
@@ -56,13 +56,13 @@ public class Test0 {
         }
         //
         System.out.println();
-        System.out.println("----->13. Frapper( agresseur:1, agressé: 4, arme utilisée:2 )");
+        System.out.println("----->13. Frapper( agresseur:1, agressï¿½: 4, arme utilisï¿½e:2 )");
         valret = Facade.frapper(1, 4, 2);
-        System.out.println("----->13. Frapper( agresseur:7, agressé: 4, arme utilisée:7 )");
+        System.out.println("----->13. Frapper( agresseur:7, agressï¿½: 4, arme utilisï¿½e:7 )");
         valret = Facade.frapper(7, 4, 7);
-        System.out.println("----->13. Frapper( agresseur:4, agressé: 1, arme utilisée:4 )");
+        System.out.println("----->13. Frapper( agresseur:4, agressï¿½: 1, arme utilisï¿½e:4 )");
         valret = Facade.frapper(4, 1, 4);
-        System.out.println("----->14. Desarmer ( desarmé:1 , arme retirée:2(trident) )  ");
+        System.out.println("----->14. Desarmer ( desarmï¿½:1 , arme retirï¿½e:2(trident) )  ");
         Facade.desarmer(1, 2);
         System.out.println();
         System.out.println("----->15. Fin du combat  ");

@@ -11,11 +11,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.either;
 
 
+
 public class FacadeTest {
 
 
     @Before
-    //Lance le jeu d'essais au début du test pour avoir déjà des ethnies créées
+    //Lance le jeu au avant chaque test pour vider toutes les listes
     public void setUp() {
         Facade.lancerJeu();
     }
@@ -55,10 +56,8 @@ public class FacadeTest {
         for (int i = 1; i <= 10; i++) {
             idg = Facade.creerRetiaire("Antonismael", agilite, ide);
             assertThat("L'idg n'est pas " + i, idg, is(i));
-            Facade.supprimerGlad(idg);
         }
 
-        Facade.supprimerEthnie(ide);
     }
 
     @Test
@@ -72,10 +71,8 @@ public class FacadeTest {
         for (int i = 1; i <= 10; i++) {
             idg = Facade.creerRetiaire("Antonismael", agilite, ide);
             assertThat("L'idg n'est pas " + i, idg, is(i));
-            Facade.supprimerGlad(idg);
         }
 
-        Facade.supprimerEthnie(ide);
     }
 
 
@@ -91,9 +88,6 @@ public class FacadeTest {
         int idg = Facade.creerRetiaire("Antonismael", agilite, 4);
         assertThat("Facade.agiliteRetiaire : Agilite ne vaut pas 200 ou agiliteMax des Retiaire",
                    Facade.agiliteRetiaire(idg), either(is(200)).or(is(Facade.getAgiliteMaxRetiaire())));
-
-        Facade.supprimerGlad(idg);
-        Facade.supprimerEthnie(ide);
     }
 
     /**
@@ -109,24 +103,135 @@ public class FacadeTest {
         assertThat("Facade.poidsMirmillon : Poids ne vaut pas 200 ou poidsMax des Mirmillon",
                    Facade.poidsMirmillon(idg), either(is(200)).or(is(Facade.getPoidsMaxMirmillon())));
 
-        Facade.supprimerGlad(idg);
-        Facade.supprimerEthnie(ide);
     }
 
     /**
-     * @see Facade#listerTousGladiateurs()
+     * @see Facade#listerTousGladiateursInitial()
      */
     @Test
-    public void testListerTousGladiateurs() {
-        fail("Unimplemented");
+    //5.a listerTousGalidateursInitial
+    public void testListerTousGladiateursInitial() {
+        assertThat("La liste des Gladiateurs n'est pas initialement vide", Facade.listerTousGladiateurs().isEmpty(), is(true));
+    }
+    
+    /**
+     * @see Facade#listerTousGladiateurs1()
+     */
+    @Test
+    //5.b listerTousGalidateurs1
+    public void testListerTousGladiateurs1() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int idg = Facade.creerRetiaire("Antonismael", 30, 1);
+        assertThat("La liste des Gladiateurs ne contient pas " + idg, Facade.listerTousGladiateurs().contains(idg), is(true));
+    }
+    
+    /**
+     * @see Facade#listerTousGladiateurs2()
+     */
+    @Test
+    //5.c listerTousGalidateurs2
+    public void testListerTousGladiateurs2() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int idg = Facade.creerRetiaire("Antonismael", 30, 1);
+        int idg2 = Facade.creerMirmillon("Antonismael", 30, 1);
+        assertThat("La liste des Gladiateurs ne contient pas " + idg , Facade.listerTousGladiateurs().contains(idg), is(true));
+        assertThat("La liste des Gladiateurs ne contient pas " + idg2, Facade.listerTousGladiateurs().contains(idg2), is(true));
     }
 
     /**
      * @see Facade#listerAgresseurs(Integer)
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
+    //11.a listerAgresseurs
     public void testListerAgresseurs() {
-        fail("Unimplemented");
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int idg = Facade.creerRetiaire("Antonismael", 30, 1);
+        
+        Facade.listerAgresseurs(idg);
+    }
+    
+    /**
+     * @see Facade#listerAgresseurs(Integer)
+     */
+    @Test
+    //11.b listerAgresseursMirmillon
+    public void testListerAgresseursMirmillon() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        
+        for (Arme a : gArme.getArmes()){
+            System.out.println(a.getNom());
+        }
+        
+        for (Gladiateur g : gGladiateur.listerGladiateurs()){
+            System.out.println(g.getNom());
+        }
+        
+        System.out.println(ida);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        
+        
+        for( int i : Facade.listerAgresseurs(idg2)) {
+            System.out.println(i);
+        }
+
+        assertThat("La liste des agresseurs de Mirmillon " + idg2 + " ne contient pas " + idg1, Facade.listerAgresseurs(idg2).contains(idg1), is(true));
+
+        assertThat("La liste des agresseurs de Mirmillon " + idg1 + " n'est pas vide", Facade.listerAgresseurs(idg1).isEmpty(), is(true));
+    }
+    
+    /**
+     * @see Facade#listerAgresseurs(Integer)
+     */
+    @Test
+    //11.b listerAgresseursPlusieursCoups
+    public void testListerAgresseursPlusieursCoups() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        Facade.frapper(idg1, idg2, ida); 
+        
+        int x =0;
+        
+        for(int i : Facade.listerAgresseurs(idg2)){
+            if (i==idg1) {
+                x++;
+            }
+        }
+
+        assertThat("La liste des agresseurs de Mirmillon " + idg2 + " contient plusieurs fois le gladiateurs " + idg1, x, is(1));
+
+    }
+    
+    /**
+     * @see Facade#listerAgresseurs(Integer)
+     */
+    @Test
+    //11.c listerAgresseursLuiMeme
+    public void testListerAgresseursLuiMeme() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        Facade.frapper(idg1, idg1, ida);
+
+        assertThat("La liste des agresseurs de Mirmillon " + idg1 + " ne contient pas le gladiateur " + idg1, Facade.listerAgresseurs(idg1).contains(idg1), is(true));
+
     }
 
     /**
@@ -157,8 +262,41 @@ public class FacadeTest {
      * @see Facade#supprimerGlad(Integer)
      */
     @Test
+    //12.a supprimerGlad
     public void testSupprimerGlad() {
-        fail("Unimplemented");
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int idg1 = Facade.creerRetiaire("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        
+        Facade.supprimerGlad(idg1);
+        
+        assertThat("La liste contient plus d'un Gladiateur", Facade.listerTousGladiateurs().size(), is(1));
+        assertThat("La liste ne contient pas le second Gladiateur", Facade.listerTousGladiateurs().contains(idg2), is(true));
+        
+        Facade.supprimerGlad(idg2);
+        
+        assertThat("La liste n'est pas vide", Facade.listerTousGladiateurs().isEmpty(), is(true));
+        
+    }
+    
+    /**
+     * @see Facade#supprimerGlad(Integer)
+     */
+    @Test
+    //12.b supprimerGladMirmillon
+    public void testSupprimerGladMirmillon() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("Glaive", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        Facade.frapper(idg1, idg2, ida);      
+        Facade.supprimerGlad(idg1);
+        
+        assertThat("La liste des agresseurs de Mirmillon " + idg2 + " n'est pas vide", Facade.listerAgresseurs(idg2).isEmpty(), is(true));
+        
     }
 
 
@@ -333,8 +471,141 @@ public class FacadeTest {
      * @see Facade#frapper(Integer,Integer,Integer)
      */
     @Test
-    public void testFrapper() {
-        fail("Unimplemented");
+    //10.a testFrapperA
+    public void testFrapperA() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        int vieInit = Facade.vieGladiateur(idg2);
+        
+        Facade.frapper(idg1, idg2, ida); 
+
+
+        assertThat("La vie du Mirmillon " + idg2 + " n'est pas diminuée de la somme entre la force du coup de l'agresseur et la puissance offensive de l'arme choisie", Facade.vieGladiateur(idg2), is(vieInit - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff())));
+
+    }
+    
+    /**
+     * @see Facade#frapper(Integer,Integer,Integer)
+     */
+    @Test
+    //10.b testFrapperB
+    public void testFrapperB() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 0);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerRetiaire("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        int vieInit = Facade.vieGladiateur(idg2);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        
+        int vie = (vieInit + ((Retiaire)gGladiateur.getGladiateur(idg2)).getAgilite()) - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff());
+        
+
+        assertThat("La vie du Retiaire " + idg2 + " n'as pas pris en compte son agilité", Facade.vieGladiateur(idg2), is(vie));
+    }
+    
+    /**
+     * @see Facade#frapper(Integer,Integer,Integer)
+     */
+    @Test
+    //10.c testFrapperC
+    public void testFrapperC() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 50);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerMirmillon("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        Facade.donnerUneArme(ida, idg2);
+        
+        int vieInit = Facade.vieGladiateur(idg2);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        
+        Gladiateur g = gGladiateur.getGladiateur(idg2);
+        
+        Integer val_deff = 0;
+        for (Arme a : g.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
+            val_deff += a.getValDef();
+        }
+            
+        int vie = (vieInit + val_deff) - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff());
+        
+
+
+        assertThat("La vie du Mirmillon " + idg2 + " ne prends pas en compte la valeur defensive de ses armes", Facade.vieGladiateur(idg2), is(vie));
+
+    }
+    
+    /**
+     * @see Facade#frapper(Integer,Integer,Integer)
+     */
+    @Test
+    //10.d testFrapperD
+    public void testFrapperD() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 80, 50);
+        int idg1 = Facade.creerMirmillon("Nathan", 50, 1);
+        int idg2 = Facade.creerRetiaire("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.autoriserArmeAuxRetiaires(ida);
+        Facade.donnerUneArme(ida, idg1);
+        Facade.donnerUneArme(ida, idg2);
+        
+        int vieInit = Facade.vieGladiateur(idg2);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        
+        Gladiateur g = gGladiateur.getGladiateur(idg2);
+        
+        Integer val_deff = 0;
+        for (Arme a : g.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
+            val_deff += a.getValDef();
+        }
+            
+        int vie = (vieInit + val_deff + ((Retiaire)g).getAgilite()) - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff());
+
+        assertThat("La vie du Retiaire " + idg2 + " ne prends pas en compte la valeur defensive de ses armes et/ou son agilite", Facade.vieGladiateur(idg2), is(vie));
+
+    }
+    
+    /**
+     * @see Facade#frapper(Integer,Integer,Integer)
+     */
+    @Test
+    //10.e testFrapperE
+    public void testFrapperE() {
+        gEthnie.creerEthnie(1, "Strasbourgeois");
+        int ida =  Facade.creerUneArme("GlaiveTest", 10, 50);
+        int idg1 = Facade.creerMirmillon("Nathan", 10, 1);
+        int idg2 = Facade.creerRetiaire("Ismo", 50, 1);
+        
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.donnerUneArme(ida, idg1);
+        
+        int vieInit = Facade.vieGladiateur(idg2);
+        
+        Facade.frapper(idg1, idg2, ida); 
+        
+        Gladiateur g = gGladiateur.getGladiateur(idg2);       
+            
+        int vie = (vieInit + ((Retiaire)g).getAgilite()) - (Facade.forceGladiateur(idg1) + gArme.getArme(ida).getValOff());
+
+
+        //assertThat("La vie du Retiaire " + idg2 + " ne prends pas en compte la valeur defensive de ses armes et/ou son agilite", Facade.vieGladiateur(idg2), not(greaterThan(vie)));
+
     }
 
     /**

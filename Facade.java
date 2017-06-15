@@ -97,6 +97,14 @@ public class Facade {
         return m.getPoids();
     }
     
+    public static int vieGladiateur(int idg){
+        return gGladiateur.getGladiateur(idg).getVie();
+    }
+    
+    public static int forceGladiateur(int idg){
+        return gGladiateur.getGladiateur(idg).getForce();
+    }
+    
     public static Integer getAgiliteMaxRetiaire()
     {
         return Retiaire.c_getAgiliteMax();
@@ -132,38 +140,44 @@ public class Facade {
             {
                  res = gGladiateur.nouveauMirmillion(nom, poids, e);
             }
+            
+    	    return res;
     	}
-        return res;
-    }
+        
+    
     
 
     
     public static Collection<Integer> listerTousGladiateurs() {
         //retourne la liste des idg de tous les gladiateurs
     	ArrayList<Integer> res = new ArrayList<Integer>();
-        for(Gladiateur g : gGladiateur.ListerGladiateurs()) {
+        for(Gladiateur g : gGladiateur.listerGladiateurs()) {
             res.add(g.getIdg());
         }
         return res;
     }    
     
     public static Collection<Integer> listerAgresseurs(Integer idg) {
-        //  retourne la liste des idg des agresseurs du gladiateur idg (si idg est un mirmillon sinon rien)
-    	ArrayList<Integer> res = new ArrayList<Integer>();
-    	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	
-    	if (g != null)//empeche l'acces a un element null
-    	{
-    		if(g.getType()=="Mirmillon") //verifie que le gladiateur est un mirmillon car il est le seul a posseder une liste d'agresseurs
-    		{
-                for (Gladiateur glad : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
-                    res.add(glad.getIdg())       ;               
+        
+        if(gGladiateur.getGladiateur(idg).getType() == "Retiaire") {
+            throw new IllegalArgumentException();
+        }
+        else {
+            ArrayList<Integer> res = new ArrayList<Integer>();
+            Gladiateur g = gGladiateur.getGladiateur(idg);
+            
+            if (g != null)//empeche l'acces a un element null
+            {
+                    if(g.getType()=="Mirmillon") //verifie que le gladiateur est un mirmillon car il est le seul a posseder une liste d'agresseurs
+                    {
+                    for (Gladiateur glad : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
+                        res.add(glad.getIdg())       ;               
+                    }
                 }
             }
-    	}
- 
-        return res;
-        
+            
+            return res;
+        }
     }  
     public static String faireSaluerGladiateur(Integer idg) {
         //retourne la phrase de salut : "Ave Caesar...." du gladiateur idg
@@ -203,11 +217,11 @@ public class Facade {
         int res=-1;
         int i=0;
         boolean trouve = false;
-        while (i < gGladiateur.ListerGladiateurs().size() && !trouve)
+        while (i < gGladiateur.listerGladiateurs().size() && !trouve)
         {
-            if (gGladiateur.ListerGladiateurs().get(i).getIdg() == idg) {
+            if (gGladiateur.listerGladiateurs().get(i).getIdg() == idg) {
                 res=idg;
-                gGladiateur.ListerGladiateurs().remove(i);
+                gGladiateur.listerGladiateurs().remove(i);
                 trouve=true;
             }
             else {
@@ -239,7 +253,7 @@ public class Facade {
 
 // Les armes
     public static Integer creerUneArme(String nom, Integer puissOff, Integer puissDef) {
-        if (nom==null || nom=="" || puissOff <= 0 || puissDef <=0)
+        if (nom==null || nom=="" || puissOff < 0 || puissDef <0)
             throw new IllegalArgumentException();
         for (Arme a : gArme.getArmes())
             if (a.getNom()==nom)
@@ -268,41 +282,43 @@ public class Facade {
     }
     public static Integer donnerUneArme(Integer ida, Integer idg) {
         //donne l'arme ida au gladiateur idg
-        if (!gArme.getArmes().contains(ida) || !gGladiateur.ListerGladiateurs().contains(idg))
-            throw new NoSuchElementException();
         
-    	Integer res = -1;
-    	Arme a = gArme.getArme(ida);
-    	Gladiateur g = gGladiateur.getGladiateur(idg);
-    	if (g != null && a != null)//empeche l'acces a des elements null
-    	{
-    		if(!g.declarerArmes().contains(a))//Empeche de donner 2 fois la meme arme a un gladiateur
-			{
-        		if (g.getType() == "Mirmillon")
-        		{
-        			
-        			if (Mirmillon.c_getArmesDispoMir().contains(a))//empeche de donner une arme non autorisee
-        			{
-        				if (!g.declarerArmes().contains(a))
-        				{
-        					res =  g.addArme(a);
-        				}
-        			}else{
-        				System.out.println("Les Mirmillon ne sont pas autorise a recevoir cette arme.");
-        			}
-        		}
-        		else if (g.getType() == "Retiaire"){
-        			if (Retiaire.c_getArmesDispoRet().contains(a))//empeche de donner une arme non autorisee
-        			{
-        				res =  g.addArme(a);
-        			}else{
-        				System.out.println("Les Retiaire ne sont pas autorise a recevoir cette arme.");
-        			}
-        		}
-			}else{
-				System.out.println(g.getNom() + " possede deja cette arme.");
-			}
-    	}
+        if (!gArme.getArmes().contains(gArme.getArme(ida)) || !gGladiateur.listerGladiateurs().contains(gGladiateur.getGladiateur(idg))){
+            throw new NoSuchElementException();
+        }
+        
+        Integer res = -1;
+                Arme a = gArme.getArme(ida);
+                Gladiateur g = gGladiateur.getGladiateur(idg);
+                if (g != null && a != null)//empeche l'acces a des elements null
+                {
+                        if(!g.declarerArmes().contains(a))//Empeche de donner 2 fois la meme arme a un gladiateur
+                                {
+                                if (g.getType() == "Mirmillon")
+                                {
+
+                                        if (Mirmillon.c_getArmesDispoMir().contains(a))//empeche de donner une arme non autorisee
+                                        {
+                                                if (!g.declarerArmes().contains(a))
+                                                {
+                                                        res =  g.addArme(a);
+                                                }
+                                        }else{
+                                                System.out.println("Les Mirmillon ne sont pas autorise a recevoir cette arme.");
+                                        }
+                                }
+                                else if (g.getType() == "Retiaire"){
+                                        if (Retiaire.c_getArmesDispoRet().contains(a))//empeche de donner une arme non autorisee
+                                        {
+                                                res =  g.addArme(a);
+                                        }else{
+                                                System.out.println("Les Retiaire ne sont pas autorise a recevoir cette arme.");
+                                        }
+                                }
+                                }else{
+                                        System.out.println(g.getNom() + " possede deja cette arme.");
+                                }
+                }
         return res;
     }
     public static Collection<Integer> listerArmesDispoMirmillon() {
