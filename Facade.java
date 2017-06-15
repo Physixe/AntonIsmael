@@ -87,10 +87,24 @@ public class Facade {
         Mirmillon.setC_poidsMax(poidsMax);
     }
     
+    public static int getValOffArme(int ida){
+        return gArme.getArme(ida).getValOff();
+    }
+    
+    public static int getValDeffArme(int ida){
+        return gArme.getArme(ida).getValDef();
+    }
+    
+    public static int creerEthnie(int ide, String nom) {
+        return gEthnie.creerEthnie(ide, nom);
+    }
+    
     public static int agiliteRetiaire(int idg){
        Retiaire r = (Retiaire)gGladiateur.getGladiateur(idg);
        return r.getAgilite();
     }
+    
+    
     
     public static int poidsMirmillon(int idg){
         Mirmillon m = (Mirmillon)gGladiateur.getGladiateur(idg);
@@ -220,9 +234,21 @@ public class Facade {
         while (i < gGladiateur.listerGladiateurs().size() && !trouve)
         {
             if (gGladiateur.listerGladiateurs().get(i).getIdg() == idg) {
+                for (Gladiateur m : gGladiateur.listerGladiateurs()){
+                    if (m.getType() == "Mirmillon") {
+                        if (((Mirmillon)m).listerAgresseurs().contains(gGladiateur.getGladiateur(idg))){
+                            ((Mirmillon)m).listerAgresseurs().remove(((Mirmillon)m).listerAgresseurs().indexOf(gGladiateur.getGladiateur(idg)));
+                        }
+                    }
+                }
+                
+                
                 res=idg;
                 gGladiateur.listerGladiateurs().remove(i);
                 trouve=true;
+                
+                
+                
             }
             else {
                 i++;
@@ -430,13 +456,19 @@ public class Facade {
     	Integer res = -1;
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	Arme a = gArme.getArme(ida);
-    	if (g != null && a != null)//empeche l'acces a des elements nuls
+        
+        if ((g.getType() == "Retiaire" && !Retiaire.c_getArmesDispoRet().contains(a)) || (g.getType()=="Mirmillon" && !Mirmillon.c_getArmesDispoMir().contains(a))) {
+            throw new IllegalArgumentException();
+        }
+        
+    	else if (g != null && a != null)//empeche l'acces a des elements nuls
     	{
     		if (g.declarerArmes().contains(a))//empeche de desarmer un gladiateur d'une arme qu'il ne possede pas
     		{
     			res = g.perdreArme(ida);
     		}else{
     			System.out.println(g.getNom() + " ne possede pas de " + a.getNom());
+                    throw new NoSuchElementException();
     		}
     	}
         return res;

@@ -34,7 +34,9 @@ public class Mirmillon extends Gladiateur {
         if (glad==null || arme ==null)
             throw new IllegalArgumentException();
         
-        agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
+        if (!agresseur.contains(glad)) {
+            agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
+        }
 
         Integer val_deff = 0;
         for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
