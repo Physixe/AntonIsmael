@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ArmeTest {
@@ -41,6 +42,7 @@ public class ArmeTest {
 
 
     @Test
+    @Ignore
     public void testDecrire() {
         fail("Ce test est délicat à réaliser car le format exact n'a pas été fixé");
     }

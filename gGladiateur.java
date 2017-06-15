@@ -38,7 +38,7 @@ public class gGladiateur {
         Integer res = -1;      
         if(gEthnie.listerEthnies().contains(ethnie))//empeche de creer un mirmillon avec une fausse ethnie
         {
-            Mirmillon m = new Mirmillon(nextIdg, nom,ethnie,poids );
+            Mirmillon m = new Mirmillon(nextIdg, nom, poids, ethnie);
             res = m.getIdg();
             nextIdg++;
             tsLesGladiateurs.add(m);

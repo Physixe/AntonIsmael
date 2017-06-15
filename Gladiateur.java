@@ -51,6 +51,9 @@ public abstract class Gladiateur {
             victime.recoitCoups(this,a);
             res = victime.getIdg();
         }
+        else{
+            throw new IllegalArgumentException("L'arme est nulle");
+        }
         
         return res;
     }
@@ -66,6 +69,9 @@ public abstract class Gladiateur {
     }
 
     public Integer perdreArme(Integer ida) {
+        if (ida==null)
+            throw new IllegalArgumentException("L'arme est nulle");
+        
         Integer i = 0;            
         boolean continu = true;
         Integer res = -1;
@@ -87,7 +93,9 @@ public abstract class Gladiateur {
     
     public Integer addArme(Arme a) {
         Integer res=-1;
-        if (a != null && !this.declarerArmes().contains(a))//empeche l'acces a un elements null, et d'avoir 2 fois la meme arme
+        if (a==null)
+            throw new IllegalArgumentException("L'arme est nulle");
+        else if (a != null && !this.declarerArmes().contains(a))//empeche l'acces a un elements null, et d'avoir 2 fois la meme arme
         {
             appartient.add(a);
             res = a.getIda();
@@ -111,9 +119,11 @@ public abstract class Gladiateur {
         else if (this.vie >= 10 && this.vie <= 50)
             res = "Blesse";
         else
-            res = "Bien portant";
+            res = "vivant";
         return res;
     }
+    
+    
     
     public void setVie(Integer v) {
         this.vie=v;

@@ -14,7 +14,7 @@ public class FacadeTest {
     }
     
     @Before
-    //Lance le jeu d'essais au début du test pour avoir déjà des ethnies créées
+    //Lance le jeu d'essais au dÃ©but du test pour avoir dÃ©jÃ  des ethnies crÃ©Ã©es
     public void setUp()
     {
         Facade.lancerJeu();
