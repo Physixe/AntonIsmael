@@ -222,14 +222,21 @@ public class Facade {
 
 // Les armes
     public static Integer creerUneArme(String nom, Integer puissOff, Integer puissDef) {
+        if (nom==null || nom=="" || puissOff <= 0 || puissDef <=0)
+            throw new IllegalArgumentException();
+        for (Arme a : gArme.getArmes())
+            if (a.getNom()==nom)
+                throw new IllegalArgumentException();
         return gArme.nouvelleArme(nom, puissOff, puissDef);
     }
+    
     public static Integer autoriserArmeAuxMirmillons(Integer ida) {
     	Arme a = gArme.getArme(ida);
     	Integer res = -1;
     	if (a != null)//empeche l'acces a un element null
     	{
-    		res = Mirmillon.c_autoriserArmeMirmillon(a);
+            
+            res = Mirmillon.c_autoriserArmeMirmillon(a);
     	}
         return res;
     }

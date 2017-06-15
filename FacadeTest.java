@@ -10,8 +10,7 @@ import static org.hamcrest.CoreMatchers.either;
 
 
 public class FacadeTest {
-    public FacadeTest() {
-    }
+    
     
     @Before
     //Lance le jeu d'essais au début du test pour avoir déjà des ethnies créées
@@ -166,14 +165,21 @@ public class FacadeTest {
         fail("Unimplemented");
     }
 
-    /**
-     * @see Facade#creerUneArme(String,Integer,Integer)
-     */
-    @Test
-    public void testCreerUneArme() {
-        fail("Unimplemented");
+    
+    //6.a
+    @Test (expected = IllegalArgumentException.class)
+    public void testCreerUneArme1() {
+        int ida1 = Facade.creerUneArme(null, 0, 10);
+        int ida2 = Facade.creerUneArme("", -10, 10);
     }
 
+    //6.b
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreerUneArme2(){
+        int ida1 = Facade.creerUneArme("Kaaris", 10, 20);
+        int ida2 = Facade.creerUneArme("Kaaris", 3, 67);   
+    }
+    
     /**
      * @see Facade#autoriserArmeAuxMirmillons(Integer)
      */
@@ -198,17 +204,46 @@ public class FacadeTest {
         fail("Unimplemented");
     }
 
-    /**
-     * @see Facade#listerArmesDispoMirmillon()
-     */
+    //7.a 
     @Test
-    public void testListerArmesDispoMirmillon() {
-        fail("Unimplemented");
+    public void testListerArmesDispoMirmillon1() {
+        assertTrue("Facade.listerArmesDispoMirmillon : liste des armes diponbibles aux mirmillons non vide initialement", 
+                   Facade.listerArmesDispoMirmillon().isEmpty());
+        // 7.b
+        Integer ida = Facade.creerUneArme("KB9", 9, 10);
+        Facade.autoriserArmeAuxMirmillons(ida);
+        
+        assertThat("Facade.listerArmesDispoMirmillon().size : n'est pas de taille 1", 
+                   Facade.listerArmesDispoMirmillon().size(), is(1));
+        
+        
+        assertThat("Facade.listerArmesDispoMirmillon().contains(a) : la liste ne contient pas l'arme ", 
+                   Facade.listerArmesDispoMirmillon().contains(ida), is(true));
+    
     }
+    
+    //7.b
+    @Test
+    public void testListerArmesDispoMirmillon2() {
+        Integer ida = Facade.creerUneArme("M10", 20, 15);
+        Facade.autoriserArmeAuxMirmillons(ida);
+        Facade.autoriserArmeAuxRetiaires(ida);
+        
+        assertThat("Facade.listerArmesDispoMirmillon().size : n'est pas de taille 1", 
+                   Facade.listerArmesDispoMirmillon().size(), is(1));
+        
+        assertThat("Facade.listerArmesDispoRetiaire().size : n'est pas de taille 1", 
+                   Facade.listerArmesDispoRetiaire().size(), is(1));
+        
+        assertThat("Facade.listerArmesDispoMirmillon().contains(a) : la liste ne contient pas l'arme ", 
+                   Facade.listerArmesDispoMirmillon().contains(ida), is(true));
+        
+        assertThat("Facade.listerArmesDispoRetiaire().contains(a) : la liste ne contient pas l'arme ", 
+                   Facade.listerArmesDispoRetiaire().contains(ida), is(true));
+    }
+        
 
-    /**
-     * @see Facade#listerArmesDispoRetiaire()
-     */
+    
     @Test
     public void testListerArmesDispoRetiaire() {
         fail("Unimplemented");
