@@ -8,6 +8,14 @@ public class Facade {
     public static Integer lancerJeu() {
         //initialise les parametres du jeu avec les valeurs par defaut
         parametrage(200,30,100,100);
+
+        
+        gEthnie.viderListe();
+        gGladiateur.viderListe();
+        gArme.viderListe();
+        Retiaire.c_viderListe();
+        Mirmillon.c_viderListe();
+         
         return 0;
     }
     public static void lancerJeuDEssai() {
@@ -104,18 +112,26 @@ public class Facade {
     public static Integer creerRetiaire(String nom, Integer agilite, Integer ide) {
     	Integer res = -1;
     	Ethnie e = gEthnie.getEthnie(ide);
-    	if(e != null){//empeche l'acces a un element null
-    		res = gGladiateur.nouveauRetiaire(nom, agilite, e);
+    	if(e == null || nom == null || nom == "" || agilite == null || agilite < 0){//empeche l'acces a un element null
+            throw new IllegalArgumentException();
+        }
+        else
+        {
+            res = gGladiateur.nouveauRetiaire(nom, agilite, e);
     	}
         return res;
     }
     
     public static Integer creerMirmillon(String nom, Integer poids, Integer ide) {
     	Integer res = -1;
-    	Ethnie e = gEthnie.getEthnie(ide);
-    	if(e != null){//empeche l'acces a un element null
+        Ethnie e = gEthnie.getEthnie(ide);
+        if(e == null || nom == null || nom == "" || poids == null || poids < 0){//empeche l'acces a un element null
+            throw new IllegalArgumentException();
+        }
+        else
+        {
     		res = gGladiateur.nouveauMirmillion(nom, poids, e);
-    	}
+            }
         return res;
     }
     
@@ -183,22 +199,7 @@ public class Facade {
     }
     
     public static Integer supprimerGlad(Integer idg) {
-        int res=-1;
-        int i=0;
-        boolean trouve = false;
-        while (i < gGladiateur.ListerGladiateurs().size() && !trouve)
-        {
-            if (gGladiateur.ListerGladiateurs().get(i).getIdg() == idg) {
-                res=idg;
-                gGladiateur.ListerGladiateurs().remove(i);
-                trouve=true;
-            }
-            else {
-                i++;
-            }
-        }
-        return res;
-        
+        return gGladiateur.supprimerGlad(idg);
     }
     
     public static Integer supprimerEthnie(Integer ide)
@@ -222,21 +223,14 @@ public class Facade {
 
 // Les armes
     public static Integer creerUneArme(String nom, Integer puissOff, Integer puissDef) {
-        if (nom==null || nom=="" || puissOff <= 0 || puissDef <=0)
-            throw new IllegalArgumentException();
-        for (Arme a : gArme.getArmes())
-            if (a.getNom()==nom)
-                throw new IllegalArgumentException();
         return gArme.nouvelleArme(nom, puissOff, puissDef);
     }
-    
     public static Integer autoriserArmeAuxMirmillons(Integer ida) {
     	Arme a = gArme.getArme(ida);
     	Integer res = -1;
     	if (a != null)//empeche l'acces a un element null
     	{
-            
-            res = Mirmillon.c_autoriserArmeMirmillon(a);
+    		res = Mirmillon.c_autoriserArmeMirmillon(a);
     	}
         return res;
     }

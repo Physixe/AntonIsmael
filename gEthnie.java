@@ -64,4 +64,8 @@ public class gEthnie {
         
         return ttesLesEthnies.get(i).calculerScore();
     }
+    
+    public static void viderListe() {
+        ttesLesEthnies.clear();
+    }
 }

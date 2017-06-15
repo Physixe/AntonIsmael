@@ -22,22 +22,19 @@ public class Ethnie {
     	
     	for (Gladiateur g : gladEthnie)
     	{
-            
-            if (g.getVie() > 50)
-            {
-    		res += 10;
-            }
-            else if (g.getVie() >= 10)
-            {
-        	res += 5;
-            }
+    		if (g.getVie() > 50){
+    			res += 10;
+    		}
+    		else if (g.getVie() >= 10){
+    			res += 5;
+    		}
     	}
     	
     	return res;
     }
 
     public Integer getIde() {
-        return ide;
+        return this.ide;
     }
 
     public String getNom() {
@@ -50,16 +47,12 @@ public class Ethnie {
     
     public Integer ajouterGlad(Gladiateur g)
     {
-        if (g==null || gladEthnie==null)
-            throw new IllegalArgumentException("Glad = null");
-
     	Integer res = -1;
     	if (g != null)//empeche l'acces a un element null
     	{
-    		gladEthnie.add(g);
+    		this.gladEthnie.add(g);
     		res = g.getIdg();
     	}
-        
     	return res;
     }
     
