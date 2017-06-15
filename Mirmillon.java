@@ -11,12 +11,8 @@ public class Mirmillon extends Gladiateur {
     ArrayList<Gladiateur> agresseur=new ArrayList<Gladiateur>();
 
     //constructeur
-    public Mirmillon(Integer idg, String nom, Integer poids, Ethnie ethnie) {
+    public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
         super(idg, nom, ethnie);
-        
-        if (idg < 1 || nom=="" || nom==null || poids <0 || poids > c_poidsMax)
-            throw new IllegalArgumentException();
-        
         if (poids > Mirmillon.c_poidsMax)//empeche d'avoir un poids superieur au poids max
          {
          poids = Mirmillon.c_poidsMax;
@@ -31,9 +27,6 @@ public class Mirmillon extends Gladiateur {
     }
 
     public void recoitCoups(Gladiateur glad, Arme arme) {
-        if (glad==null || arme ==null)
-            throw new IllegalArgumentException();
-        
         agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
 
         Integer val_deff = 0;
@@ -92,6 +85,10 @@ public class Mirmillon extends Gladiateur {
     public Integer getForce() {
       return (poids/2);
     }
+    
+    public Integer getPoids() {
+      return poids;
+    }
 
     public static ArrayList<Arme> c_getArmesDispoMir() {
       return c_armesAccessMirmillon;
@@ -104,6 +101,11 @@ public class Mirmillon extends Gladiateur {
     	}
         c_poidsMax = p;
     }
+    
+    public static int c_getPoidsMax()
+    {
+        return c_poidsMax;
+    }
 
     public ArrayList<Gladiateur> listerAgresseurs() {
       return agresseur;
@@ -111,9 +113,6 @@ public class Mirmillon extends Gladiateur {
 
     public static Integer c_autoriserArmeMirmillon(Arme arme) {
         int res=-1;
-        if (arme==null)
-            throw new IllegalArgumentException("L'arme est nulle !");
-                                          
         if (arme != null && !c_armesAccessMirmillon.contains(arme))//empeche l'acces a un element null et d'avoir 2 fois la meme arme 
         {
         	c_armesAccessMirmillon.add(arme);
@@ -129,36 +128,5 @@ public class Mirmillon extends Gladiateur {
     
     public String getType(){
         return c_type;
-    }
-    
-    public Integer getPoids() 
-    {
-        return this.poids;
-    }
-    
-    public static String c_getType(){
-        return c_type;
-    }
-    
-    public static void c_setType(String s){
-        c_type = s;
-    }
-    
-    public static Integer c_getPoidsMax() {
-        return c_poidsMax;
-    }
-    
-    public boolean armeEstAutorisee(Arme arme){
-        
-
-        boolean res= false;
-        if (arme==null)
-            throw new IllegalArgumentException("L'arme est nulle");
-        else if (c_armesAccessMirmillon.contains(arme))
-        {
-           res = true;
-        }
-            
-        return res;
     }
 }

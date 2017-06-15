@@ -2,6 +2,8 @@ package packglad;
 
 import java.util.ArrayList;
 
+import jdk.jfr.events.ThrowablesEvent;
+
 public class Retiaire extends Gladiateur {
     
     private static String c_type = "Retiaire";
@@ -13,10 +15,6 @@ public class Retiaire extends Gladiateur {
     //constructeur
     public Retiaire(Integer idg, String nom, Integer agilite, Ethnie ethnie) {
         super(idg, nom,ethnie);
-        
-        if (idg<1 || nom==null ||nom==""|| agilite <0 || agilite > c_agiliteMax)
-            throw new IllegalArgumentException("L'arme est nulle");
-        
         if (agilite > Retiaire.c_agiliteMax){//empeche de depasser l'agilite max
         	agilite = Retiaire.c_agiliteMax;
         }else if(agilite < 0){//empeche d'avoir une agilite negative
@@ -86,22 +84,25 @@ public class Retiaire extends Gladiateur {
 
     public void recoitCoups(Gladiateur glad, Arme arme) 
     {
-        if (glad==null || arme ==null)
-            throw new IllegalArgumentException("L'arme est nulle");
-        
-        Integer val_deff = 0;
-        for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
-            val_deff += a.getValDef();
-        }
-        Integer degats = 0;
-        if (glad != null)
-            degats = glad.getForce() + arme.getValOff() - val_deff - agilite;//calcule la somme des degats et enleve la defense
-
-        if (degats > 0){//empeche des degats negatifs
-            this.setVie(this.getVie() - degats);//applique les degats
-            if (this.getVie() < 0 ){//empeche une vie negative
-            	this.setVie(0);
+        if (glad != null && arme != null)
+        {
+            Integer val_deff = 0;
+            for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
+                val_deff += a.getValDef();
             }
+            
+            Integer degats = glad.getForce() + arme.getValOff() - val_deff - agilite;//calcule la somme des degats et enleve la defense
+
+            if (degats > 0){//empeche des degats negatifs
+                this.setVie(this.getVie() - degats);//applique les degats
+                if (this.getVie() < 0 ){//empeche une vie negative
+                    this.setVie(0);
+                }
+            }
+        }
+        else
+        {   
+            throw new IllegalArgumentException();
         }
     }
 
@@ -116,30 +117,38 @@ public class Retiaire extends Gladiateur {
 
 
     public static Integer c_autoriserArmeRetiaire(Arme arme) {
-        if (arme == null)
-            throw new IllegalArgumentException("L'arme est nulle");
-
-        int res=-1;
+        if(arme != null)
+        {
+            int res=-1;
         if (arme != null && !c_armesAccessRetiaire.contains(arme))//empeche d'avoir plusieurs fois la meme arme
         {
             c_armesAccessRetiaire.add(arme);
             res = arme.getIda();
         }
         return res;
+        }
+        else
+        {   
+            throw new IllegalArgumentException();
+        }
+        
     }
     
     public boolean armeEstAutorisee(Arme arme){
-        
-
+        if(arme != null)
+        {
         boolean res= false;
-        if (arme==null)
-            throw new IllegalArgumentException("L'arme est nulle");
-        else if (c_armesAccessRetiaire.contains(arme))
+        if (c_armesAccessRetiaire.contains(arme))
         {
            res = true;
         }
-            
-        return res;
+        return res; 
+        }
+        else
+        {   
+            throw new IllegalArgumentException();
+        }
+        
     }
     
     public String saluer(){
@@ -157,6 +166,4 @@ public class Retiaire extends Gladiateur {
     public static void c_setType(String s){
         c_type = s;
     }
-    
-    
 }

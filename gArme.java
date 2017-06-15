@@ -17,7 +17,7 @@ public class gArme {
 
     public static Arme getArme(Integer ida) {
         Integer i=0;
-        boolean fin = false;//booléen vrai si on a trouvé l'arme qu'on veut parmi celles de la liste
+        boolean fin = false;//booleen vrai si on a trouve l'arme qu'on veut parmi celles de la liste
         Arme res = null;
         while (i < ttesLesArmes.size() && !fin) 
         {

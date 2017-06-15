@@ -53,9 +53,10 @@ public class Facade {
         donnerUneArme(arme3, glad1);
         
         donnerUneArme(arme1, glad2);
-        donnerUneArme(arme2, glad2);
+        //donnerUneArme(arme2, glad2);
         donnerUneArme(arme5, glad2);
         donnerUneArme(arme6, glad2);
+        donnerUneArme(arme4, glad2);
         
         donnerUneArme(arme2, glad3);
         donnerUneArme(arme6, glad3);
@@ -77,6 +78,27 @@ public class Facade {
         Retiaire.c_setAgiliteMax(agilMax);
         Mirmillon.setC_poidsMax(poidsMax);
     }
+    
+    public static int agiliteRetiaire(int idg){
+       Retiaire r = (Retiaire)gGladiateur.getGladiateur(idg);
+       return r.getAgilite();
+    }
+    
+    public static int poidsMirmillon(int idg){
+        Mirmillon m = (Mirmillon)gGladiateur.getGladiateur(idg);
+        return m.getPoids();
+    }
+    
+    public static Integer getAgiliteMaxRetiaire()
+    {
+        return Retiaire.c_getAgiliteMax();
+    }
+    
+    public static Integer getPoidsMaxMirmillon()
+    {
+        return Mirmillon.c_getPoidsMax();
+    }
+    
 
 //Les gladiateurs
     public static Integer creerRetiaire(String nom, Integer agilite, Integer ide) {
@@ -96,6 +118,9 @@ public class Facade {
     	}
         return res;
     }
+    
+
+    
     public static Collection<Integer> listerTousGladiateurs() {
         //retourne la liste des idg de tous les gladiateurs
     	ArrayList<Integer> res = new ArrayList<Integer>();
@@ -136,7 +161,7 @@ public class Facade {
     }
     public static String faireRapport(Integer idg) {
         //retourne le rapport du gladiateur idg (cf enonce)
-    	String res = "L'idg ne correspond à aucun Gladiateur";
+    	String res = "L'idg ne correspond a aucun Gladiateur";
     	Gladiateur g = gGladiateur.getGladiateur(idg);
     	if (g != null)//empeche l'acces a un element null
     	{
@@ -174,6 +199,25 @@ public class Facade {
         }
         return res;
         
+    }
+    
+    public static Integer supprimerEthnie(Integer ide)
+    {
+        int res=-1;
+        int i=0;
+        boolean trouve = false;
+        while (i < gEthnie.listerEthnies().size() && !trouve)
+        {
+            if (gEthnie.listerEthnies().get(i).getIde() == ide) {
+                res=ide;
+                gEthnie.listerEthnies().remove(i);
+                trouve=true;
+            }
+            else {
+                i++;
+            }
+        }
+        return res;
     }
 
 // Les armes
@@ -243,7 +287,7 @@ public class Facade {
          return res;
     }
     public static Collection<Integer> listerArmesDispoRetiaire() {
-        //retourne la liste des ida des armes disponibles aux rï¿½tiaires
+        //retourne la liste des ida des armes disponibles aux retiaires
     	ArrayList<Integer> res = new ArrayList<Integer>();
         for (Arme a : Retiaire.c_getArmesDispoRet()) {
             res.add(a.getIda());
@@ -263,7 +307,7 @@ public class Facade {
     }
 	public static String nomDeLArme(Integer ida) {
 		//renvoie en String juste le nom de l'arme
-		String res = "L'ida ne correspond à aucune arme.";
+		String res = "L'ida ne correspond a aucune arme.";
 		Arme a = gArme.getArme(ida);
 		if (a != null)//empeche l'acces a un element null
 		{
@@ -292,7 +336,7 @@ public class Facade {
     }
     public static String decrireEthnie(Integer ide) {
         //Renvoie la description de l'ethnie : ide,nom,score)
-    	String res = "L'ide ne correspons à aucune Ethnie.";
+    	String res = "L'ide ne correspons a aucune Ethnie.";
     	Ethnie e = gEthnie.getEthnie(ide);
     	if (e != null)//empeche l'acces a un element null
     	{
@@ -328,11 +372,11 @@ public class Facade {
     			{
     				res = agresseur.frapper(victime, a);
     			}else{
-    				System.out.println(agresseur.getNom() + " ne possède pas l'arme : " + a.getNom());
+    				System.out.println(agresseur.getNom() + " ne possede pas l'arme : " + a.getNom());
     			}
     			
     		}else{
-    			System.out.println(agresseur.getNom() + " (N°"+ idgAgresseur + ") est mort...");
+    			System.out.println(agresseur.getNom() + " (NÂ°"+ idgAgresseur + ") est mort...");
     		}
     		
     	}
