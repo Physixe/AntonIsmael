@@ -469,17 +469,11 @@ public class FacadeTest {
         
     }
 
-    @Test
-    public void testLancerJeu() {
-        fail("Unimplemented");
-    }
-
-    /**
-     * @see Facade#lancerJeuDEssai()
-     */
+    //13.a
+    
     @Test
     public void testLancerJeuDEssai() {
-        fail("Unimplemented");
+        
     }
 
     /**
