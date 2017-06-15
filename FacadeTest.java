@@ -26,10 +26,12 @@ public class FacadeTest {
     public void testCreerRetiaire() {
         int ide = 4;
         gEthnie.creerEthnie(ide, "Strasbourgeois");
-        int agilite = 200;
+        int agilite = 40;
         int idg = Facade.creerRetiaire("Antonismael", agilite, 4);
-        assertThat("Facade.agiliteRetiaire : Agilite ne vaut pas 200 ou agiliteMax des Retiaire",
-                   Facade.agiliteRetiaire(idg), either(is(200)).or(is(Facade.getAgiliteMaxRetiaire())));
+        assertThat("Facade.agiliteRetiaire : Agilite ne vaut pas 40 ou agiliteMax des Retiaire",
+                   Facade.agiliteRetiaire(idg), is(40));
+        
+        
     }
 
     
@@ -38,10 +40,10 @@ public class FacadeTest {
     public void testCreerMirmillon() {
         int ide = 4;
         gEthnie.creerEthnie(ide, "Strasbourgeois");
-        int poids = 200;
+        int poids = 40;
         int idg = Facade.creerMirmillon("Antonismael", poids, 4);
-        assertThat("Facade.poidsMirmillon : Poids ne vaut pas 200 ou poidsMax des Mirmillon",
-                   Facade.poidsMirmillon(idg), either(is(200)).or(is(Facade.getPoidsMaxMirmillon())));
+        assertThat("Facade.poidsMirmillon : Poids ne vaut pas 40 ou poidsMax des Mirmillon",
+                   Facade.poidsMirmillon(idg), either(is(40)).or(is(Facade.getPoidsMaxMirmillon())));
 
     }
     
@@ -50,7 +52,7 @@ public class FacadeTest {
     public void testListerGladiateursDEthnie() {
         int ide = 4;
         gEthnie.creerEthnie(ide, "Strasbourgeois");
-        int poids = 200;
+        int poids = 40;
         int idg = Facade.creerMirmillon("Antonismael", poids, 4);
 
         assertThat("Facade.listerGladiateursDEthnie(ethnie).contains(idg) : Le gladiateur ne fait pas partie de l'Ethnie",
@@ -65,7 +67,7 @@ public class FacadeTest {
     public void testIDG() {
         int ide = 4;
         gEthnie.creerEthnie(ide, "Strasbourgeois");
-        int agilite = 200;
+        int agilite = 40;
 
         int idg;
         for (int i = 1; i <= 10; i++) {
@@ -80,7 +82,7 @@ public class FacadeTest {
     public void testAjoutGlad() {
         int ide = 4;
         gEthnie.creerEthnie(ide, "Strasbourgeois");
-        int agilite = 200;
+        int agilite = 40;
 
         int idg;
         for (int i = 1; i <= 10; i++) {
