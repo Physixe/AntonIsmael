@@ -2,39 +2,39 @@ package packglad;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 public class Facade {
-
+	
     public static Integer lancerJeu() {
         //initialise les parametres du jeu avec les valeurs par defaut
         parametrage(200,30,100,100);
-
-
+        
         gEthnie.viderListe();
         gGladiateur.viderListe();
         gArme.viderListe();
         Retiaire.c_viderListe();
         Mirmillon.c_viderListe();
-
+        
         return 0;
     }
     public static void lancerJeuDEssai() {
         System.out.println("============ Creation des 3 ethnies ============");
-
+        
         Integer ethnie1 = gEthnie.creerEthnie(1, "Gaulois");
         Integer ethnie2 = gEthnie.creerEthnie(2, "Thraces");
         Integer ethnie3 = gEthnie.creerEthnie(3, "Dalmates");
-
-
-        System.out.println("============ Creation des 6 Armes  ============");
-
+        
+        
+        System.out.println("============ Creation des 6 Armes  ============");  
+        
         Integer arme1 = creerUneArme("Glaive", 80, 0);
         Integer arme2 = creerUneArme("Trident", 100, 0);
         Integer arme3 = creerUneArme("Filet", 40, 20);
         Integer arme4 = creerUneArme("Bouclier", 40, 40);
         Integer arme5 = creerUneArme("Casque", 0, 20);
         Integer arme6 = creerUneArme("Jambiere", 0, 10);
-
+        
         autoriserArmeAuxMirmillons(arme1);
         autoriserArmeAuxRetiaires(arme1);
         autoriserArmeAuxRetiaires(arme2);
@@ -44,40 +44,40 @@ public class Facade {
         autoriserArmeAuxMirmillons(arme6);
         autoriserArmeAuxRetiaires(arme6);
 
-
+        
         System.out.println("============ Creation des 6 Gladiateurs  ============");
-
+        
         Integer glad1 = creerRetiaire("Unix", 30, ethnie1);
         Integer glad2 = creerMirmillon("Informatix", 100, ethnie1);
         Integer glad3 = creerRetiaire("Ceplusplus", 40, ethnie2);
         Integer glad4 = creerMirmillon("Pythonus", 60, ethnie2);
         Integer glad5 = creerRetiaire("Szervlet", 50, ethnie3);
         Integer glad6 = creerMirmillon("Ramazmjet", 80, ethnie3);
-
+        
         System.out.println("============ Attribution des 15 armes  ============");
-
+        
         donnerUneArme(arme2, glad1);
         donnerUneArme(arme6, glad1);
         donnerUneArme(arme3, glad1);
-
+        
         donnerUneArme(arme1, glad2);
         //donnerUneArme(arme2, glad2);
         donnerUneArme(arme5, glad2);
         donnerUneArme(arme6, glad2);
         donnerUneArme(arme4, glad2);
-
+        
         donnerUneArme(arme2, glad3);
         donnerUneArme(arme6, glad3);
-
+        
         donnerUneArme(arme1, glad4);
         donnerUneArme(arme4, glad4);
-
+        
         donnerUneArme(arme1, glad5);
         donnerUneArme(arme6, glad5);
-
+        
         donnerUneArme(arme4, glad6);
         donnerUneArme(arme5, glad6);
-
+        
     }
     public static void parametrage(Integer vieInit, Integer forceRet, Integer poidsMax, Integer agilMax) {
         //permet de modifier la valeur des parametres du jeu
@@ -86,57 +86,58 @@ public class Facade {
         Retiaire.c_setAgiliteMax(agilMax);
         Mirmillon.setC_poidsMax(poidsMax);
     }
-
+    
     public static int agiliteRetiaire(int idg){
        Retiaire r = (Retiaire)gGladiateur.getGladiateur(idg);
        return r.getAgilite();
     }
-
+    
     public static int poidsMirmillon(int idg){
         Mirmillon m = (Mirmillon)gGladiateur.getGladiateur(idg);
         return m.getPoids();
     }
-
+    
     public static Integer getAgiliteMaxRetiaire()
     {
         return Retiaire.c_getAgiliteMax();
     }
-
+    
     public static Integer getPoidsMaxMirmillon()
     {
         return Mirmillon.c_getPoidsMax();
     }
-
+    
 
 //Les gladiateurs
     public static Integer creerRetiaire(String nom, Integer agilite, Integer ide) {
     	Integer res = -1;
     	Ethnie e = gEthnie.getEthnie(ide);
-    	if(e == null || nom == null || nom == "" || agilite == null || agilite < 0){//empeche l'acces a un element null
+        if(e == null || nom == null || nom == "" || agilite == null || agilite < 0){//empeche l'acces a un element null
             throw new IllegalArgumentException();
         }
         else
         {
             res = gGladiateur.nouveauRetiaire(nom, agilite, e);
+        }
+        return res;
+    }
+    
+    public static Integer creerMirmillon(String nom, Integer poids, Integer ide) {
+    	Integer res = -1;
+    	Ethnie e = gEthnie.getEthnie(ide);
+    	    if(e == null || nom == null || nom == "" || poids == null || poids < 0){//empeche l'acces a un element null
+                throw new IllegalArgumentException();
+    	    }
+    	    else
+            {
+                 res = gGladiateur.nouveauMirmillion(nom, poids, e);
+            }
     	}
         return res;
     }
+    
 
-    public static Integer creerMirmillon(String nom, Integer poids, Integer ide) {
-    	Integer res = -1;
-        Ethnie e = gEthnie.getEthnie(ide);
-        if(e == null || nom == null || nom == "" || poids == null || poids < 0){//empeche l'acces a un element null
-            throw new IllegalArgumentException();
-        }
-        else
-        {
-    		res = gGladiateur.nouveauMirmillion(nom, poids, e);
-            }
-        return res;
-    }
-
-
-
+    
     public static Collection<Integer> listerTousGladiateurs() {
         //retourne la liste des idg de tous les gladiateurs
     	ArrayList<Integer> res = new ArrayList<Integer>();
@@ -144,26 +145,26 @@ public class Facade {
             res.add(g.getIdg());
         }
         return res;
-    }
-
+    }    
+    
     public static Collection<Integer> listerAgresseurs(Integer idg) {
         //  retourne la liste des idg des agresseurs du gladiateur idg (si idg est un mirmillon sinon rien)
     	ArrayList<Integer> res = new ArrayList<Integer>();
     	Gladiateur g = gGladiateur.getGladiateur(idg);
-
+    	
     	if (g != null)//empeche l'acces a un element null
     	{
     		if(g.getType()=="Mirmillon") //verifie que le gladiateur est un mirmillon car il est le seul a posseder une liste d'agresseurs
     		{
                 for (Gladiateur glad : ((Mirmillon) gGladiateur.getGladiateur(idg)).listerAgresseurs()) {
-                    res.add(glad.getIdg())       ;
+                    res.add(glad.getIdg())       ;               
                 }
             }
     	}
-
+ 
         return res;
-
-    }
+        
+    }  
     public static String faireSaluerGladiateur(Integer idg) {
         //retourne la phrase de salut : "Ave Caesar...." du gladiateur idg
     	Gladiateur g = gGladiateur.getGladiateur(idg);
@@ -197,11 +198,26 @@ public class Facade {
     	}
         return res;
     }
-
+    
     public static Integer supprimerGlad(Integer idg) {
-        return gGladiateur.supprimerGlad(idg);
+        int res=-1;
+        int i=0;
+        boolean trouve = false;
+        while (i < gGladiateur.ListerGladiateurs().size() && !trouve)
+        {
+            if (gGladiateur.ListerGladiateurs().get(i).getIdg() == idg) {
+                res=idg;
+                gGladiateur.ListerGladiateurs().remove(i);
+                trouve=true;
+            }
+            else {
+                i++;
+            }
+        }
+        return res;
+        
     }
-
+    
     public static Integer supprimerEthnie(Integer ide)
     {
         int res=-1;
@@ -223,19 +239,21 @@ public class Facade {
 
 // Les armes
     public static Integer creerUneArme(String nom, Integer puissOff, Integer puissDef) {
-			if (nom==null || nom=="" || puissOff <= 0 || puissDef <=0)
+        if (nom==null || nom=="" || puissOff <= 0 || puissDef <=0)
             throw new IllegalArgumentException();
-       for (Arme a : gArme.getArmes())
-           if (a.getNom()==nom)
+        for (Arme a : gArme.getArmes())
+            if (a.getNom()==nom)
                 throw new IllegalArgumentException();
-				return gArme.nouvelleArme(nom, puissOff, puissDef);
+        return gArme.nouvelleArme(nom, puissOff, puissDef);
     }
+    
     public static Integer autoriserArmeAuxMirmillons(Integer ida) {
     	Arme a = gArme.getArme(ida);
     	Integer res = -1;
     	if (a != null)//empeche l'acces a un element null
     	{
-    		res = Mirmillon.c_autoriserArmeMirmillon(a);
+            
+            res = Mirmillon.c_autoriserArmeMirmillon(a);
     	}
         return res;
     }
@@ -250,6 +268,9 @@ public class Facade {
     }
     public static Integer donnerUneArme(Integer ida, Integer idg) {
         //donne l'arme ida au gladiateur idg
+        if (!gArme.getArmes().contains(ida) || !gGladiateur.ListerGladiateurs().contains(idg))
+            throw new NoSuchElementException();
+        
     	Integer res = -1;
     	Arme a = gArme.getArme(ida);
     	Gladiateur g = gGladiateur.getGladiateur(idg);
@@ -259,7 +280,7 @@ public class Facade {
 			{
         		if (g.getType() == "Mirmillon")
         		{
-
+        			
         			if (Mirmillon.c_getArmesDispoMir().contains(a))//empeche de donner une arme non autorisee
         			{
         				if (!g.declarerArmes().contains(a))
@@ -300,7 +321,7 @@ public class Facade {
         }
         return res;
     }
-
+    
     public static String decrireArme(Integer ida) {
         //renvoie en String la description de l'arme (cf p4 de l'enonce) ida,nom,valOff,ValDef, dispoMir,dispoRet
     	Arme a = gArme.getArme(ida);
@@ -322,11 +343,11 @@ public class Facade {
 		return res;
     }
 
-// Les ethnies
+// Les ethnies 
     public static Collection<Integer> listerEthnies() {
         //retourne la liste des ide de toutes les ethnies
     	ArrayList<Integer> res = new ArrayList<Integer>();
-
+        
         for(Ethnie e : gEthnie.listerEthnies()) {
             res.add(e.getIde());
         }
@@ -335,7 +356,7 @@ public class Facade {
     public static Collection<Integer> listerGladiateursDEthnie(Integer ide) {
         //liste des idg des gladiateurs de l'ethnie ide
     	ArrayList<Integer> res = new ArrayList<Integer>();
-
+        
         for(Gladiateur g : gEthnie.listerGladiateursDEthnie(ide))
             res.add(g.getIdg());
         return res;
@@ -351,7 +372,7 @@ public class Facade {
                     + "Score : " + getScore(ide);
     	}
         return res;
-
+        
     }
     public static Integer getScore(Integer ide) {
         //retourne le score de l'ethnie ide
@@ -363,8 +384,8 @@ public class Facade {
     	}
         return res;
     }
-
-//combat
+ 
+//combat 
     public static Integer frapper(Integer idgAgresseur, Integer idgVictime, Integer ida) {
         //le gladiateur idgAgresseur frappe le gladiateur idgVictime a l'aide de l'arme ida
     	Integer res = -1;
@@ -380,11 +401,11 @@ public class Facade {
     			}else{
     				System.out.println(agresseur.getNom() + " ne possede pas l'arme : " + a.getNom());
     			}
-
+    			
     		}else{
     			System.out.println(agresseur.getNom() + " (N°"+ idgAgresseur + ") est mort...");
     		}
-
+    		
     	}
         return res;
     }
@@ -408,33 +429,33 @@ public class Facade {
         //renvoie le ou les ide de l'ethnie (des ethnies ex aequo) gagnante/s
     	ArrayList<Integer> vainqueurs = new ArrayList<Integer>();
         Integer scoreMax = 0;
-        for (int i=0; i< listerEthnies().size(); i++)
+        for (int i=0; i< listerEthnies().size(); i++) 
         {
             if(gEthnie.listerEthnies().get(i).calculerScore()>scoreMax)
             {
                 scoreMax = gEthnie.listerEthnies().get(i).calculerScore();
             }
         }
-
-        for (int i=0; i< listerEthnies().size(); i++)
+        
+        for (int i=0; i< listerEthnies().size(); i++) 
         {
             if(gEthnie.listerEthnies().get(i).calculerScore()==scoreMax)
             {
                 vainqueurs.add(gEthnie.listerEthnies().get(i).getIde());
             }
-        }
+        }  
         Ethnie.c_setPeutAjouter(true);
-        return vainqueurs;
-    }
-
+        return vainqueurs;    
+    } 
+    
 //Pour les tests unitaires
-
+    
     public static String nomDuGladiateur(Integer idg) {
         return gGladiateur.getGladiateur(idg).getNom();
     }
-
+    
     public static String nomDeLEthnie(Integer ide) {
         return gEthnie.getEthnie(ide).getNom();
-    }
+    }  
 
 }

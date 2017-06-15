@@ -19,18 +19,14 @@ public class RetiaireTest
         r = new Retiaire(1, "Younix", 50, e);        
     }
             
-    /**
-     * @see Gladiateur#getIdg()
-     */
+    
     @Test
     public void testGetIdg()
     {
         assertThat("Gladiateur.getIdg : Idg mal initialisé", r.getIdg(), is(1));
     }
     
-    /**
-     * @see Gladiateur#getNom()
-     */
+    
     @Test
     public void testGetNom()
     {
@@ -52,9 +48,9 @@ public class RetiaireTest
      * @see Gladiateur#getMonEthnie()
      */
     @Test
-    public void testGetMonEthnie()
+    public void testGetEthnie()
     {
-        assertThat("Gladiateur.getMonEthnie : ethnie mal initialisée", 
+        assertThat("Gladiateur.getEthnie : ethnie mal initialisée", 
                    r.getEthnie(), is(e));
     }
     
@@ -84,7 +80,7 @@ public class RetiaireTest
      * @see Retiaire#getTypeGlad()
      */
     @Test
-    public void testGetTypeGlad()
+    public void testGetTypeGladRet()
     {
         assertThat("Retiaire.getTypeGlad : Type du retiaire mal initialisé", 
                    r.getType(), is(Retiaire.c_getType()));    
@@ -141,9 +137,9 @@ public class RetiaireTest
      * @see Retiaire#c_getTypeGlad()
      */
     @Test
-    public void testC_getTypeGlad()
+    public void testC_getTypeGladRet()
     {
-        assertThat("Retiaire.c_getTypeGlad() : Type des retiaires mal initialisé", 
+        assertThat("Retiaire.c_getTypeGladRet() : Type des retiaires mal initialisé", 
                    Retiaire.c_getType().toLowerCase(), is("retiaire"));
     }
 
@@ -151,12 +147,12 @@ public class RetiaireTest
      * @see Retiaire#c_setTypeGlad(String)
      */
     @Test
-    public void testC_setTypeGlad()
+    public void testC_setTypeGladRet()
     {
         String s = "NouveauNOM";
         String t = Retiaire.c_getType();
         Retiaire.c_setType(s);
-        assertThat("Retiaire.c_getTypeGlad() : Type des retiaires mal modifié", 
+        assertThat("Retiaire.c_getTypeGladRet() : Type des retiaires mal modifié", 
                    Retiaire.c_getType(), is(s));
         Retiaire.c_setType(t);
     }
@@ -187,7 +183,7 @@ public class RetiaireTest
      */
     @Test(expected = IllegalArgumentException.class)
     //    "Retiaire.autoriserArme : Arme null ne lance pas l'exception IllegalArgumentException"
-    public void testAutoriserArme()
+    public void testAutoriserArmeRet()
     {
         Retiaire.c_autoriserArmeRetiaire(null);
     }
@@ -196,9 +192,9 @@ public class RetiaireTest
      * @see Retiaire#listerArmesAutorisees()
      */
     @Test
-    public void testListerArmesAutorisees()
+    public void testListerArmesAutoriseesRet()
     {
-        assertTrue("Retiaire.listerArmesAutorisees : liste des armes autorisées non vide initialement", 
+        assertTrue("Retiaire.listerArmesAutoriseesRet : liste des armes autorisées non vide initialement", 
                    Retiaire.c_getArmesDispoRet().isEmpty());
     }
     
@@ -212,7 +208,7 @@ public class RetiaireTest
     public void testEstBienPortant()
     {
         assertTrue("Gladiateur.estBienPortant : younix devrait être bien portant", 
-                   r.getEtat()!="vivant");
+                   r.getEtat()=="vivant");
     }
 
     /**
@@ -222,7 +218,7 @@ public class RetiaireTest
     public void testEstBlesse()
     {
         assertFalse("Gladiateur.estBlesse : younix ne devrait pas être blessé", 
-                  r.getEtat()!="blessé");
+                  r.getEtat()=="blessé");
     }
 
     /**
@@ -238,7 +234,7 @@ public class RetiaireTest
     /**
      * @see Gladiateur#getMesArmes()
      */
-    
+    //ARRET ICI
     @Test
     public void testGetMesArmes()
     {

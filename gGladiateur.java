@@ -38,7 +38,7 @@ public class gGladiateur {
         Integer res = -1;      
         if(gEthnie.listerEthnies().contains(ethnie))//empeche de creer un mirmillon avec une fausse ethnie
         {
-            Mirmillon m = new Mirmillon(nextIdg, nom,ethnie,poids );
+            Mirmillon m = new Mirmillon(nextIdg, nom, poids, ethnie);
             res = m.getIdg();
             nextIdg++;
             tsLesGladiateurs.add(m);
@@ -58,7 +58,6 @@ public class gGladiateur {
         return res;
     }
     
-    
     public static Integer supprimerGlad(Integer idg) {
         int res=-1;
         int i=0;
@@ -70,17 +69,17 @@ public class gGladiateur {
                 gGladiateur.ListerGladiateurs().remove(i);
                 trouve=true;
                 nextIdg--;
-            }
+                }
             else {
                 i++;
             }
         }
         return res;
-        
     }
-    
+        
     public static void viderListe() {
         tsLesGladiateurs.clear();
         nextIdg=1;
     }
+    
 }
