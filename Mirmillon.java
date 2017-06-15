@@ -3,7 +3,7 @@ package packglad;
 import java.util.ArrayList;
 
 public class Mirmillon extends Gladiateur {
- 
+
     private static String c_type = "Mirmillon";
     private static Integer c_poidsMax = 100;
     private Integer poids;
@@ -13,13 +13,17 @@ public class Mirmillon extends Gladiateur {
     //constructeur
     public Mirmillon(Integer idg, String nom, Ethnie ethnie, Integer poids) {
         super(idg, nom, ethnie);
+
+        if (idg < 1 || nom=="" || nom==null || poids <0 || poids > c_poidsMax)
+           throw new IllegalArgumentException();
+
         if (poids > Mirmillon.c_poidsMax)//empeche d'avoir un poids superieur au poids max
          {
          poids = Mirmillon.c_poidsMax;
          }else if (poids < 0){//empeche d'avoir un poids negatif
         	 poids = 0;
          }
-        this.poids = poids;     
+        this.poids = poids;
     }
 
     public static void setC_poidsMax(Integer c_poidsMax) {
@@ -27,13 +31,17 @@ public class Mirmillon extends Gladiateur {
     }
 
     public void recoitCoups(Gladiateur glad, Arme arme) {
+
+      if (glad==null || arme ==null)
+            throw new IllegalArgumentException();
+
         agresseur.add(glad);//se souvient du gladiateur qui l'a frappe
 
         Integer val_deff = 0;
         for (Arme a : this.declarerArmes()){//accumule la valeur defensive des armes du gladiateur
             val_deff += a.getValDef();
         }
-        
+
         Integer degats = glad.getForce() + arme.getValOff() - val_deff;//calcule la somme des degats et enleve la defense
 
         if (degats > 0){//empeche des degats negatifs
@@ -49,16 +57,16 @@ public class Mirmillon extends Gladiateur {
       String rapport;
       String armes = "";
       String aggr = "";
-      
+
       if (this.declarerArmes().isEmpty()){
     	  armes = "Aucune arme";
       }else
       {
           for (Arme a : this.declarerArmes()){
               armes += a.getNom() + ", ";
-          } 
+          }
       }
-      
+
       if (this.listerAgresseurs().isEmpty()){
     	  aggr = "Aucun agresseurs";
       }
@@ -85,7 +93,7 @@ public class Mirmillon extends Gladiateur {
     public Integer getForce() {
       return (poids/2);
     }
-    
+
     public Integer getPoids() {
       return poids;
     }
@@ -101,7 +109,7 @@ public class Mirmillon extends Gladiateur {
     	}
         c_poidsMax = p;
     }
-    
+
     public static int c_getPoidsMax()
     {
         return c_poidsMax;
@@ -113,23 +121,58 @@ public class Mirmillon extends Gladiateur {
 
     public static Integer c_autoriserArmeMirmillon(Arme arme) {
         int res=-1;
-        if (arme != null && !c_armesAccessMirmillon.contains(arme))//empeche l'acces a un element null et d'avoir 2 fois la meme arme 
+
+        if (arme==null)
+            throw new IllegalArgumentException("L'arme est nulle !");
+
+        if (arme != null && !c_armesAccessMirmillon.contains(arme))//empeche l'acces a un element null et d'avoir 2 fois la meme arme
         {
         	c_armesAccessMirmillon.add(arme);
         	res = arme.getIda();
         }
-        
+
         return res;
     }
-    
+
     public String saluer(){
         return "Ave Caesar, Mirmillon N°"+ this.getIdg()+ " : " + this.getNom() + ", j'appartiens a l'ethnie des " + this.getEthnie().getNom();
     }
-    
+
     public String getType(){
         return c_type;
     }
     public static void c_viderListe() {
         c_armesAccessMirmillon.clear();
     }
+
+    public Integer getPoids()
+        {
+            return this.poids;
+        }
+
+        public static String c_getType(){
+            return c_type;
+        }
+
+        public static void c_setType(String s){
+            c_type = s;
+        }
+        
+        public static Integer c_getPoidsMax() {
+            return c_poidsMax;
+        }
+
+        public boolean armeEstAutorisee(Arme arme){
+
+
+            boolean res= false;
+            if (arme==null)
+                throw new IllegalArgumentException("L'arme est nulle");
+            else if (c_armesAccessMirmillon.contains(arme))
+            {
+               res = true;
+            }
+
+            return res;
+
 }
