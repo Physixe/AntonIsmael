@@ -572,6 +572,25 @@ public class FacadeTest {
     @Test
     //13.a
     public void testLancerJeuDEssai() {
-        fail();
+        Facade.lancerJeuDEssai();
+        assertThat("Le nombre d'ethnies ne vaut pas 3", Facade.listerEthnies().size(), is(3));
+        assertThat("Le nomre d'armes ne vaut pas 6", Facade.listerArmes().size(), is(6));
+        assertThat("Le nombre de gladiateurs ne vaut pas 6", Facade.listerTousGladiateurs().size(), is(6));
+        
+        assertThat("Nombre de glad d'ethnie 1 != 2", Facade.listerGladiateursDEthnie(1).size(), is(2));
+        assertThat("Nombre de glad d'ethnie 2 != 2", Facade.listerGladiateursDEthnie(2).size(), is(2));
+        assertThat("Nombre de glad d'ethnie 3 != 2", Facade.listerGladiateursDEthnie(3).size(), is(2));
+       
+        
+        assertThat("Nombre d'armes dipo aux aux Mirmillons != 4", Facade.listerArmesDispoMirmillon().size(), is(4));
+        assertThat("Nombre d'armes dipo aux aux Retiaires != 4", Facade.listerArmesDispoRetiaire().size(), is(4));
+        
+        assertThat("Armes de glad1 != 3", Facade.listerArmesDuGlad(1).size(), is(3));
+        assertThat("Armes de glad2 != 4", Facade.listerArmesDuGlad(2).size(), is(4));
+        assertThat("Armes de glad3 != 2", Facade.listerArmesDuGlad(3).size(), is(2));
+        assertThat("Armes de glad4 != 2", Facade.listerArmesDuGlad(4).size(), is(2));
+        assertThat("Armes de glad5 != 2", Facade.listerArmesDuGlad(5).size(), is(2));
+        assertThat("Armes de glad6 != 2", Facade.listerArmesDuGlad(6).size(), is(2));
+
     }
 }

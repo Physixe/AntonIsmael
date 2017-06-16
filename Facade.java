@@ -395,6 +395,25 @@ public class Facade {
         }
         return res;
     }
+    
+    public static Collection<Integer> listerArmes() {
+        //retourne la liste de toutes les armes
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        
+        for(Arme a : gArme.getArmes()){
+            res.add(a.getIda());
+        }
+        return res;
+    }
+    
+    public static Collection<Integer> listerArmesDuGlad(Integer idg){
+        ArrayList<Integer> res = new ArrayList<Integer>();
+    
+        for(Arme a : gGladiateur.getGladiateur(idg).declarerArmes())
+            res.add(a.getIda());
+        return res;
+    }
+    
     public static Collection<Integer> listerGladiateursDEthnie(Integer ide) {
         //liste des idg des gladiateurs de l'ethnie ide
     	ArrayList<Integer> res = new ArrayList<Integer>();
@@ -505,5 +524,7 @@ public class Facade {
     public static String nomDeLEthnie(Integer ide) {
         return gEthnie.getEthnie(ide).getNom();
     }  
-
+    
+    
+    
 }
